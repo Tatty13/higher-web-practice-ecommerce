@@ -8,6 +8,8 @@ export type CartItem = {
 };
 
 export type Cart = {
+  id: string;
+  userId: string;
   items: CartItem[];
   totalPrice: number;
   totalItems: number;

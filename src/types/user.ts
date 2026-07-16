@@ -7,9 +7,10 @@ export type User = {
   language?: 'ru' | 'en';
   notifyByEmail?: boolean;
   createdAt: string;
+  password: string;
 };
 
-export type UserProfile = User;
+export type UserProfile = Omit<User, 'password'>;
 
 export type RegisterPayload = {
   firstName: string;
@@ -24,9 +25,24 @@ export type LoginPayload = {
   password: string;
 };
 
-export type UpdateProfilePayload = {
+export type UpdateProfilePayloadData = {
   firstName?: string;
   lastName?: string;
   email?: string;
   password?: string;
+};
+
+export type UpdateProfilePayload = {
+  userId: string;
+  data: UpdateProfilePayloadData;
+};
+
+export type ChangeUserLanguagePayload = {
+  userId: string;
+  language: User['language'];
+};
+
+export type ChangeUserNotificationPayload = {
+  userId: string;
+  notifyByEmail: boolean;
 };

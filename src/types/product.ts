@@ -11,6 +11,15 @@ export type Product = {
   createdAt: string;
 };
 
+export type ProductFilters = {
+  category?: string;
+  style?: string[];
+  thickness?: string;
+  inStock?: boolean;
+  minPrice?: number;
+  maxPrice?: number;
+};
+
 export type ProductListResponse = {
   items: Product[];
   total: number;
@@ -18,9 +27,17 @@ export type ProductListResponse = {
   pageSize: number;
 };
 
-export type ProductSort = 'price_asc' | 'price_desc' | 'newest' | 'rating';
+export type ProductSort =
+  | 'price_asc'
+  | 'price_desc'
+  | 'newest'
+  | 'rating'
+  | 'default';
+
+export type ProductView = 'grid' | 'list';
 
 export type ProductRating = {
+  id: string;
   productId: string;
   userId: string;
   userName: string;

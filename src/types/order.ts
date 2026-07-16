@@ -5,17 +5,12 @@ export type Order = {
   status: OrderStatus;
   items: OrderItem[];
   totalPrice: number;
-
   paymentMethod: PaymentMethod;
   deliveryMethod: DeliveryMethod;
-
-  deliveryAddress?: Address;
+  deliveryAddress?: string;
   pickupPointId?: string;
-
   customer: OrderCustomerInfo;
-
   comment?: string;
-
   createdAt: string;
 };
 
@@ -39,19 +34,11 @@ export type PaymentMethod = 'card_online' | 'card_on_delivery' | 'cash';
 
 export type DeliveryMethod = 'courier' | 'pickup_point';
 
-export type Address = {
-  country: string;
-  city: string;
-  street: string;
-  house: string;
-  apartment?: string;
-  postalCode?: string;
-};
-
 export type PickupPoint = {
   id: string;
   name: string;
   address: string;
+  workTime: string;
 };
 
 export type OrderCustomerInfo = {
@@ -61,13 +48,7 @@ export type OrderCustomerInfo = {
   phone: string;
 };
 
-export type CreateOrderPayload = {
-  phone: string;
-  comment?: string;
-
-  paymentMethod: PaymentMethod;
-  deliveryMethod: DeliveryMethod;
-
-  deliveryAddress?: Address;
-  pickupPointId?: string;
-};
+export type CreateOrderPayload = Omit<
+  Order,
+  'id' | 'number' | 'createdAt' | 'status'
+>;
