@@ -171,7 +171,7 @@
         "закрученность": "Низкая",
         "харизма": "3"
       },
-      "inStock": true,
+      "inStock": false,
       "rating": 0,
       "ratingCount": 0,
       "createdAt": "2026-03-01T14:00:00Z"
@@ -553,14 +553,7 @@
       "totalPrice": 9080,
       "paymentMethod": "card_online",
       "deliveryMethod": "courier",
-      "deliveryAddress": {
-        "country": "Россия",
-        "city": "Москва",
-        "street": "Тверская",
-        "house": "7",
-        "apartment": "15",
-        "postalCode": "125009"
-      },
+      "deliveryAddress": "125009, Россия, г. Москва, ул. Тверская, 7, кв. 15",
       "customer": {
         "firstName": "Иван",
         "lastName": "Петров",
@@ -626,14 +619,7 @@
       "totalPrice": 9080,
       "paymentMethod": "cash",
       "deliveryMethod": "courier",
-      "deliveryAddress": {
-        "country": "Россия",
-        "city": "Москва",
-        "street": "Покровка",
-        "house": "12",
-        "apartment": "42",
-        "postalCode": "101000"
-      },
+      "deliveryAddress": "101000, Россия, г. Москва, ул. Покровка, 12, кв. 42",
       "customer": {
         "firstName": "Анна",
         "lastName": "Смирнова",
@@ -730,12 +716,430 @@
     {
       "id": "5a6b7c8d-9e0f-4a1b-8c2d-3e4f5a9c8001",
       "name": "Пункт выдачи №1",
-      "address": "Москва, Арбат 12"
+      "address": "Москва, Арбат 12",
+      "workTime": "Ежедневно: 09:00–21:00"
     },
     {
       "id": "6b7c8d9e-0f1a-4b2c-8d3e-4f5a6b0d8002",
       "name": "Пункт выдачи №2",
-      "address": "Москва, улица Ленина 45"
+      "address": "Москва, улица Ленина 45",
+      "workTime": "Ежедневно: 10:00–22:00"
+    },
+    {
+      "id": "6b7c8d9e-0f1a-4b2c-8d3e-4f5a6b0d8003",
+      "name": "Пункт выдачи №3",
+      "address": "Москва, улица Ленина 55",
+      "workTime": "Ежедневно: 10:00–22:00"
+    },
+    {
+      "id": "6b7c8d9e-0f1a-4b2c-8d3e-4f5a6b0d8004",
+      "name": "Пункт выдачи №4",
+      "address": "Москва, улица Ленина 123",
+      "workTime": "Ежедневно: 10:00–22:00"
+    },
+    {
+      "id": "6b7c8d9e-0f1a-4b2c-8d3e-4f5a6b0d8005",
+      "name": "Пункт выдачи №5",
+      "address": "Москва, улица Ленина 5",
+      "workTime": "Ежедневно: 10:00–22:00"
+    }
+  ],
+  "cities": [
+    {
+      "id": "abakan",
+      "name": "Абакан"
+    },
+    {
+      "id": "anadyr",
+      "name": "Анадырь"
+    },
+    {
+      "id": "angarsk",
+      "name": "Ангарск"
+    },
+    {
+      "id": "arkhangelsk",
+      "name": "Архангельск"
+    },
+    {
+      "id": "astrakhan",
+      "name": "Астрахань"
+    },
+    {
+      "id": "balakovo",
+      "name": "Балаково"
+    },
+    {
+      "id": "balashikha",
+      "name": "Балашиха"
+    },
+    {
+      "id": "barnaul",
+      "name": "Барнаул"
+    },
+    {
+      "id": "belgorod",
+      "name": "Белгород"
+    },
+    {
+      "id": "berezniki",
+      "name": "Березники"
+    },
+    {
+      "id": "biysk",
+      "name": "Бийск"
+    },
+    {
+      "id": "blagoveshchensk",
+      "name": "Благовещенск"
+    },
+    {
+      "id": "bratsk",
+      "name": "Братск"
+    },
+    {
+      "id": "bryansk",
+      "name": "Брянск"
+    },
+    {
+      "id": "veliky-novgorod",
+      "name": "Великий Новгород"
+    },
+    {
+      "id": "vladivostok",
+      "name": "Владивосток"
+    },
+    {
+      "id": "vladimir",
+      "name": "Владимир"
+    },
+    {
+      "id": "volgograd",
+      "name": "Волгоград"
+    },
+    {
+      "id": "volzhsky",
+      "name": "Волжский"
+    },
+    {
+      "id": "vologda",
+      "name": "Вологда"
+    },
+    {
+      "id": "voronezh",
+      "name": "Воронеж"
+    },
+    {
+      "id": "grozny",
+      "name": "Грозный"
+    },
+    {
+      "id": "dzerzhinsk",
+      "name": "Дзержинск"
+    },
+    {
+      "id": "yekaterinburg",
+      "name": "Екатеринбург"
+    },
+    {
+      "id": "ivanovo",
+      "name": "Иваново"
+    },
+    {
+      "id": "izhevsk",
+      "name": "Ижевск"
+    },
+    {
+      "id": "irkutsk",
+      "name": "Иркутск"
+    },
+    {
+      "id": "yoshkar-ola",
+      "name": "Йошкар-Ола"
+    },
+    {
+      "id": "kazan",
+      "name": "Казань"
+    },
+    {
+      "id": "kaliningrad",
+      "name": "Калининград"
+    },
+    {
+      "id": "kaluga",
+      "name": "Калуга"
+    },
+    {
+      "id": "kamyshin",
+      "name": "Камышин"
+    },
+    {
+      "id": "kemerovo",
+      "name": "Кемерово"
+    },
+    {
+      "id": "kirov",
+      "name": "Киров"
+    },
+    {
+      "id": "kostroma",
+      "name": "Кострома"
+    },
+    {
+      "id": "krasnodar",
+      "name": "Краснодар"
+    },
+    {
+      "id": "krasnoyarsk",
+      "name": "Красноярск"
+    },
+    {
+      "id": "kurgan",
+      "name": "Курган"
+    },
+    {
+      "id": "kursk",
+      "name": "Курск"
+    },
+    {
+      "id": "lipetsk",
+      "name": "Липецк"
+    },
+    {
+      "id": "magnitogorsk",
+      "name": "Магнитогорск"
+    },
+    {
+      "id": "makhachkala",
+      "name": "Махачкала"
+    },
+    {
+      "id": "miass",
+      "name": "Миасс"
+    },
+    {
+      "id": "moscow",
+      "name": "Москва"
+    },
+    {
+      "id": "murmansk",
+      "name": "Мурманск"
+    },
+    {
+      "id": "naberezhnye-chelny",
+      "name": "Набережные Челны"
+    },
+    {
+      "id": "nalchik",
+      "name": "Нальчик"
+    },
+    {
+      "id": "nizhnevartovsk",
+      "name": "Нижневартовск"
+    },
+    {
+      "id": "nizhnekamsk",
+      "name": "Нижнекамск"
+    },
+    {
+      "id": "nizhny-novgorod",
+      "name": "Нижний Новгород"
+    },
+    {
+      "id": "nizhny-tagil",
+      "name": "Нижний Тагил"
+    },
+    {
+      "id": "novokuznetsk",
+      "name": "Новокузнецк"
+    },
+    {
+      "id": "novorossiysk",
+      "name": "Новороссийск"
+    },
+    {
+      "id": "novosibirsk",
+      "name": "Новосибирск"
+    },
+    {
+      "id": "novy-urengoy",
+      "name": "Новый Уренгой"
+    },
+    {
+      "id": "norilsk",
+      "name": "Норильск"
+    },
+    {
+      "id": "omsk",
+      "name": "Омск"
+    },
+    {
+      "id": "orel",
+      "name": "Орёл"
+    },
+    {
+      "id": "orenburg",
+      "name": "Оренбург"
+    },
+    {
+      "id": "orsk",
+      "name": "Орск"
+    },
+    {
+      "id": "penza",
+      "name": "Пенза"
+    },
+    {
+      "id": "perm",
+      "name": "Пермь"
+    },
+    {
+      "id": "petropavlovsk-kamchatsky",
+      "name": "Петропавловск-Камчатский"
+    },
+    {
+      "id": "petrozavodsk",
+      "name": "Петрозаводск"
+    },
+    {
+      "id": "pskov",
+      "name": "Псков"
+    },
+    {
+      "id": "pyatigorsk",
+      "name": "Пятигорск"
+    },
+    {
+      "id": "rostov-on-don",
+      "name": "Ростов-на-Дону"
+    },
+    {
+      "id": "ryazan",
+      "name": "Рязань"
+    },
+    {
+      "id": "salekhard",
+      "name": "Салехард"
+    },
+    {
+      "id": "samara",
+      "name": "Самара"
+    },
+    {
+      "id": "saint-petersburg",
+      "name": "Санкт-Петербург"
+    },
+    {
+      "id": "saransk",
+      "name": "Саранск"
+    },
+    {
+      "id": "saratov",
+      "name": "Саратов"
+    },
+    {
+      "id": "severodvinsk",
+      "name": "Северодвинск"
+    },
+    {
+      "id": "smolensk",
+      "name": "Смоленск"
+    },
+    {
+      "id": "sochi",
+      "name": "Сочи"
+    },
+    {
+      "id": "stavropol",
+      "name": "Ставрополь"
+    },
+    {
+      "id": "sterlitamak",
+      "name": "Стерлитамак"
+    },
+    {
+      "id": "surgut",
+      "name": "Сургут"
+    },
+    {
+      "id": "syktyvkar",
+      "name": "Сыктывкар"
+    },
+    {
+      "id": "taganrog",
+      "name": "Таганрог"
+    },
+    {
+      "id": "tambov",
+      "name": "Тамбов"
+    },
+    {
+      "id": "tver",
+      "name": "Тверь"
+    },
+    {
+      "id": "tolyatti",
+      "name": "Тольятти"
+    },
+    {
+      "id": "tomsk",
+      "name": "Томск"
+    },
+    {
+      "id": "tula",
+      "name": "Тула"
+    },
+    {
+      "id": "tyumen",
+      "name": "Тюмень"
+    },
+    {
+      "id": "ulan-ude",
+      "name": "Улан-Удэ"
+    },
+    {
+      "id": "ulyanovsk",
+      "name": "Ульяновск"
+    },
+    {
+      "id": "ufa",
+      "name": "Уфа"
+    },
+    {
+      "id": "khabarovsk",
+      "name": "Хабаровск"
+    },
+    {
+      "id": "khimki",
+      "name": "Химки"
+    },
+    {
+      "id": "cheboksary",
+      "name": "Чебоксары"
+    },
+    {
+      "id": "chelyabinsk",
+      "name": "Челябинск"
+    },
+    {
+      "id": "cherepovets",
+      "name": "Череповец"
+    },
+    {
+      "id": "chita",
+      "name": "Чита"
+    },
+    {
+      "id": "shakhty",
+      "name": "Шахты"
+    },
+    {
+      "id": "yakutsk",
+      "name": "Якутск"
+    },
+    {
+      "id": "yaroslavl",
+      "name": "Ярославль"
     }
   ]
 }
