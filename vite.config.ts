@@ -1,6 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import svgr from 'vite-plugin-svgr'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import svgr from 'vite-plugin-svgr';
+import { fileURLToPath, URL } from 'node:url';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -13,6 +14,8 @@ export default defineConfig({
     }),
   ],
   server: {
+    port: 4000,
+    open: true,
     proxy: {
       '/api': {
         target: 'http://localhost:3001',
@@ -21,4 +24,9 @@ export default defineConfig({
       },
     },
   },
-})
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+});
