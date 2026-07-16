@@ -1,0 +1,37 @@
+<svg viewBox='0 0 320 280' width='100%' height='100%' fill='none'
+  xmlns='http://www.w3.org/2000/svg'>
+  <path d='M72 243C60 219 57 185 70 166C82 149 106 148 127 154C145 159 155 161 171 153C191 143 210 130 232 136C258 143 272 170 272 194C272 218 259 235 241 243H72Z' fill='#F7F9FE' stroke='#D8DEEB' strokeWidth='2'
+              />
+<path d='M95 244C95 223 101 203 114 189C127 176 145 171 159 171C173 171 191 176 204 189C217 203 223 223 223 244' stroke='#2F54EB' strokeWidth='2.5' strokeLinecap='round'
+              />
+<rect x='126' y='138' width='67' height='64' rx='18' fill='#2F54EB'
+              />
+<circle cx='159' cy='120' r='25' fill='#ffffff' stroke='#D8DEEB' strokeWidth='2'
+              />
+<path d='M144 118C146 111 151 106 159 106C167 106 172 111 174 118' stroke='#2F54EB' strokeWidth='2.5' strokeLinecap='round'
+              />
+<path d='M150 127C153 130 156 132 159 132C162 132 165 130 168 127' stroke='#2F54EB' strokeWidth='2.5' strokeLinecap='round'
+              />
+<path d='M127 150C114 141 101 136 93 139C84 143 83 156 88 168C92 179 101 186 110 187' stroke='#D8DEEB' strokeWidth='2' strokeLinecap='round'
+              />
+<path d='M191 150C204 141 217 136 225 139C234 143 235 156 230 168C226 179 217 186 208 187' stroke='#D8DEEB' strokeWidth='2' strokeLinecap='round'
+              />
+<path d='M116 163C108 150 98 142 90 143C80 145 77 158 82 169C86 179 94 184 101 182' stroke='#D8DEEB' strokeWidth='2' strokeLinecap='round'
+              />
+<path d='M202 163C210 150 220 142 228 143C238 145 241 158 236 169C232 179 224 184 217 182' stroke='#D8DEEB' strokeWidth='2' strokeLinecap='round'
+              />
+<path d='M111 129C111 129 104 112 108 100C111 91 122 93 125 103C127 110 122 120 122 120' stroke='#2F54EB' strokeWidth='2' strokeLinecap='round'
+              />
+<path d='M207 129C207 129 214 112 210 100C207 91 196 93 193 103C191 110 196 120 196 120' stroke='#2F54EB' strokeWidth='2' strokeLinecap='round'
+              />
+<path d='M133 243L121 216' stroke='#2F54EB' strokeWidth='2.5' strokeLinecap='round'
+              />
+<path d='M185 243L197 216' stroke='#2F54EB' strokeWidth='2.5' strokeLinecap='round'
+              />
+<ellipse cx='159' cy='250' rx='78' ry='8' fill='#EEF3FF'
+              />
+<path d='M48 244C48 228 52 214 60 204C69 193 81 190 88 195C96 201 95 212 90 224C85 235 76 244 68 244H48Z' fill='#ffffff' stroke='#D8DEEB' strokeWidth='2'
+              />
+<path d='M272 244C272 228 268 214 260 204C251 193 239 190 232 195C224 201 225 212 230 224C235 235 244 244 252 244H272Z' fill='#ffffff' stroke='#D8DEEB' strokeWidth='2'
+              />
+</svg>

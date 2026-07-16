@@ -1,0 +1,16 @@
+export { default as UserIcon } from './User.svg?react';
+export { default as CartIcon } from './Shopping_bag.svg?react';
+export { default as BasketIcon } from './Trash.svg?react';
+export { default as ShoppingBagIcon } from './Shopping_bag.svg?react';
+export { default as StarIcon } from './Star.svg?react';
+export { default as PlusIcon } from './Plus.svg?react';
+export { default as ArrowIcon } from './Arrow.svg?react';
+export { default as NotFoundIcon } from './NotFound.svg?react';
+export { default as LeftArrowIcon } from './LeftArrow.svg?react';
+export { default as RightArrowIcon } from './RightArrow.svg?react';
+
+export { default as MeditationImage } from './meditation.png';
+export { default as RunnerImage } from './runner.png';
+export { default as ShoppingImage } from './shopping.png';
+export { default as BasketImage } from './basket.png';
+export { default as LogoImage } from './Logo-Full.svg';
