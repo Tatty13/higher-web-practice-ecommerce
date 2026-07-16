@@ -9,6 +9,7 @@ import { ErrorBoundary } from './components/common';
 import { AntConfigProvider } from './theme/AntConfig';
 import { theme } from './theme/styledTheme';
 import { store } from './store';
+import { AuthInitializer } from './features/auth';
 import './index.css';
 
 createRoot(document.getElementById('root')!).render(
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')!).render(
       <ThemeProvider theme={theme}>
         <AntConfigProvider>
           <Provider store={store}>
+            <AuthInitializer />
             <App />
           </Provider>
         </AntConfigProvider>
