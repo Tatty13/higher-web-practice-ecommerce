@@ -1,0 +1,11 @@
+export { LoginPage } from './Login';
+export { CartPage } from './Cart';
+export { MainPage } from './Main';
+export { OrderPage } from './Order';
+export { OrderConfirmPage } from './OrderConfirm';
+export { OrderHistoryPage } from './OrderHistory';
+export { ProductPage } from './Product';
+export { ProfilePage } from './Profile';
+export { ProfileEditPage } from './ProfileEdit';
+export { RegistrationPage } from './Registration';
+export { NotFoundPage } from './NotFound';
