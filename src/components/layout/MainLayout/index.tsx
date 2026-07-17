@@ -1,13 +1,10 @@
-import { Grid } from 'antd';
+import utils from '@/utils';
 
 import { DesktopLayout } from './DesktopLayout';
 import { MobileLayout } from './MobileLayout';
 
-const { useBreakpoint } = Grid;
-
 export function MainLayout() {
-  const screens = useBreakpoint();
-  const isMobile = !screens.md;
+  const { isMobile } = utils.responsive.useResponsive();
 
   return isMobile ? <MobileLayout /> : <DesktopLayout />;
 }

@@ -116,6 +116,7 @@ export const Catalog: FC = () => {
           padding='large'
           justify='center'>
           <CatalogList
+            withPagination
             view={view}
             items={sortedProducts}
             currentProductId={currentProductId}

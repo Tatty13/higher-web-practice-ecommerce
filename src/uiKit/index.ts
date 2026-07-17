@@ -7,3 +7,4 @@ export { Loader } from './Loader';
 export { Logo } from './Logo';
 export { SwitchWithTitle } from './SwitchWithTitle';
 export { Text } from './Text';
+export { FixedContainer } from './FixedContainer';

@@ -1,5 +1,8 @@
-import { Catalog } from '@/features/catalog';
+import { Catalog, CatalogMobile } from '@/features/catalog';
+import utils from '@/utils';
 
 export function MainPage() {
-  return <Catalog />;
+  const { isMobile } = utils.responsive.useResponsive();
+
+  return isMobile ? <CatalogMobile /> : <Catalog />;
 }

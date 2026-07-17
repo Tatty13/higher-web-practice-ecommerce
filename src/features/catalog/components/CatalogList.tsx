@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { List } from 'antd';
+import { List, type ListProps } from 'antd';
 
 import { ROUTE_PATHS } from '@/app/paths';
 import utils from '@/utils';
@@ -14,6 +14,8 @@ type CatalogListProps = {
   currentProductId?: string;
   isLoadingAddToCart: boolean;
   isErrorAddToCart: boolean;
+  withPagination?: boolean;
+  gridStyle?: ListProps<Product>['grid'];
   handleAddToCart: (productId: string) => void;
 };
 
@@ -23,6 +25,8 @@ export const CatalogList: FC<CatalogListProps> = ({
   currentProductId,
   isLoadingAddToCart,
   isErrorAddToCart,
+  withPagination,
+  gridStyle,
   handleAddToCart,
 }) => {
   const isListView = view === 'list';
@@ -30,11 +34,15 @@ export const CatalogList: FC<CatalogListProps> = ({
   return (
     <List
       dataSource={items}
-      pagination={{
-        position: 'bottom',
-        align: 'start',
-        defaultPageSize: helpersCatalog.DEFAULT_PAGE_PRODUCTS_COUNT,
-      }}
+      pagination={
+        withPagination
+          ? {
+              position: 'bottom',
+              align: 'start',
+              defaultPageSize: helpersCatalog.DEFAULT_PAGE_PRODUCTS_COUNT,
+            }
+          : undefined
+      }
       rowKey='id'
       split={isListView}
       locale={{
@@ -42,7 +50,8 @@ export const CatalogList: FC<CatalogListProps> = ({
       }}
       style={{ width: '100%' }}
       grid={
-        !isListView
+        gridStyle ||
+        (!isListView
           ? {
               gutter: 16,
               xxl: 4,
@@ -52,7 +61,7 @@ export const CatalogList: FC<CatalogListProps> = ({
               sm: 1,
               xs: 1,
             }
-          : undefined
+          : undefined)
       }
       renderItem={(product) => {
         const isError = currentProductId === product.id && isErrorAddToCart;
