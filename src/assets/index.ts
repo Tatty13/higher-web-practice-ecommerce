@@ -8,6 +8,8 @@ export { default as ArrowIcon } from './Arrow.svg?react';
 export { default as NotFoundIcon } from './NotFound.svg?react';
 export { default as LeftArrowIcon } from './LeftArrow.svg?react';
 export { default as RightArrowIcon } from './RightArrow.svg?react';
+export { default as HomeIcon } from './Home.svg?react';
+export { default as MenuIcon } from './Menu.svg?react';
 
 export { default as MeditationImage } from './meditation.png';
 export { default as RunnerImage } from './runner.png';

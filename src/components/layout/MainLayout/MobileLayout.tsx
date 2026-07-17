@@ -1,28 +1,28 @@
+import type { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Flex } from 'antd';
 import styled from 'styled-components';
 
 import { theme } from '@/theme/styledTheme';
+import { HeaderMobile } from '@/components/common';
 
-import { Header } from '../common';
-
-export function MainLayout() {
+export const MobileLayout: FC = () => {
   return (
     <Page vertical>
-      <HeaderWrapper>
-        <Header />
-      </HeaderWrapper>
       <ContentWrapper>
         <Content>
           <Outlet />
         </Content>
       </ContentWrapper>
+      <HeaderWrapper>
+        <HeaderMobile />
+      </HeaderWrapper>
     </Page>
   );
-}
-
+};
 const Page = styled(Flex)`
-  min-height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
 `;
 
 const HeaderWrapper = styled.div`
@@ -30,7 +30,8 @@ const HeaderWrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  padding: 32px ${theme.app.sidePaddingsDesktop};
+  overflow-y: auto;
+  padding: 20px ${theme.app.sidePaddingsMobile};
   flex-grow: 1;
   background: ${theme.colors.bgPrimary};
 

@@ -31,5 +31,6 @@ export const tokens = {
   app: {
     maxwidth: '1180px',
     sidePaddingsDesktop: '30px',
+    sidePaddingsMobile: '20px',
   },
 };
