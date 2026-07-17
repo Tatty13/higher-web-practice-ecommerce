@@ -4,13 +4,13 @@ import { Flex } from 'antd';
 import styled from 'styled-components';
 
 import { theme } from '@/theme/styledTheme';
-import { Header } from '@/components/common';
+import { HeaderDesktop } from '@/components/common';
 
 export const DesktopLayout: FC = () => {
   return (
     <Page vertical>
       <HeaderWrapper>
-        <Header />
+        <HeaderDesktop />
       </HeaderWrapper>
       <ContentWrapper>
         <Content>

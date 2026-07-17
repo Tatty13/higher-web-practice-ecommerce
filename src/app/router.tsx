@@ -1,6 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { MainLayout, AccountLayout, ProfileLayout } from '@/components/layout';
+import {
+  MainLayout,
+  AccountLayout,
+  ProfileLayout,
+  AuthLayout,
+} from '@/components/layout';
 import { ProtectedRoute, PublicOnlyRoute } from '@/components/common';
 import {
   CartPage,
@@ -27,14 +32,6 @@ const router = createBrowserRouter([
       { path: `${ROUTE_PATHS.product}/:id`, element: <ProductPage /> },
 
       {
-        element: <PublicOnlyRoute />,
-        children: [
-          { path: ROUTE_PATHS.login, element: <LoginPage /> },
-          { path: ROUTE_PATHS.registration, element: <RegistrationPage /> },
-        ],
-      },
-
-      {
         element: <ProtectedRoute />,
         children: [
           {
@@ -59,10 +56,23 @@ const router = createBrowserRouter([
           { path: ROUTE_PATHS.orderConfirm, element: <OrderConfirmPage /> },
         ],
       },
-
-      { path: '*', element: <NotFoundPage /> },
     ],
   },
+
+  {
+    element: <PublicOnlyRoute />,
+    children: [
+      {
+        element: <AuthLayout />,
+        children: [
+          { path: ROUTE_PATHS.login, element: <LoginPage /> },
+          { path: ROUTE_PATHS.registration, element: <RegistrationPage /> },
+        ],
+      },
+    ],
+  },
+
+  { path: '*', element: <NotFoundPage /> },
 ]);
 
 export function AppRouter() {

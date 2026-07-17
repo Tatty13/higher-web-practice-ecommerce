@@ -1,4 +1,4 @@
-export { Header } from './Header';
+export { HeaderDesktop } from './HeaderDesktop';
 export { HeaderMobile } from './HeaderMobile';
 export { ErrorBoundary } from './ErrorBoundary';
 export { ProtectedRoute } from './ProtectedRoute';

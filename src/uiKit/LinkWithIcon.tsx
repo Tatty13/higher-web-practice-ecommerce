@@ -7,7 +7,7 @@ import { theme } from '@/theme/styledTheme';
 
 type LinkWithIconProps = {
   Icon: FunctionComponent<SVGProps<SVGSVGElement>>;
-  title: string;
+  title?: string;
   iconSize?: number;
   withActiveStyle?: boolean;
 };
@@ -33,7 +33,7 @@ export const LinkWithIcon: FC<LinkWithIconProps & NavLinkProps> = ({
           width={iconSize}
           height={iconSize}
         />
-        <Title>{title}</Title>
+        {title && <Title>{title}</Title>}
       </Wrapper>
     </StyledNavLink>
   );

@@ -14,7 +14,7 @@ import { selectorsAuth } from '@/features/auth';
 
 import { Search } from './Search';
 
-export const Header: FC = () => {
+export const HeaderDesktop: FC = () => {
   const userId = useAppSelector(selectorsAuth.userId);
 
   const { currentData: user } = api.user.useGetUserQuery(userId ?? skipToken);
@@ -53,13 +53,11 @@ export const Header: FC = () => {
           </>
         ) : (
           <>
-            <Link to={ROUTE_PATHS.login}>
-              <Button
-                type='primary'
-                size='large'>
-                Войти
-              </Button>
-            </Link>
+            <LinkWithIcon
+              title='Войти'
+              Icon={UserIcon}
+              to={`${ROUTE_PATHS.login}`}
+            />
 
             <Link to={ROUTE_PATHS.registration}>
               <Button

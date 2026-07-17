@@ -19,7 +19,7 @@ type CardProps = Partial<ContainerProps> & {
 const paddingMap: Record<Padding, string> = {
   small: '16px',
   medium: '20px 16px',
-  large: '24px 24px',
+  large: '24px',
 };
 
 export const Card: FC<FlexProps & CardProps> = ({

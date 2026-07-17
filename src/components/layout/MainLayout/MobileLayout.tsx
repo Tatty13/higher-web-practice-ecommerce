@@ -40,7 +40,6 @@ const ContentWrapper = styled.div`
 
 const Content = styled.main`
   max-width: ${theme.app.maxwidth};
-  min-height: 680px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
