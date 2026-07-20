@@ -1,5 +1,5 @@
 import { type FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { skipToken } from '@reduxjs/toolkit/query';
 import {
   Avatar,
@@ -20,7 +20,8 @@ import { ROUTE_PATHS } from '@/app/paths';
 import { selectorsAuth } from '@/features/auth';
 import { actionsAuth } from '@/features/auth/slice';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { Card } from '@/uiKit';
+import { tokens } from '@/theme/tokens';
+import { Card, Text } from '@/uiKit';
 import utils from '@/utils';
 
 const langOptions: SelectProps['options'] = [
@@ -37,9 +38,12 @@ const langOptions: SelectProps['options'] = [
 export const Profile: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
   const [notificationApi, contextHolder] = notification.useNotification();
 
   const userId = useAppSelector(selectorsAuth.userId);
+
+  const { isMobile } = utils.responsive.useResponsive();
 
   const { data: user, isLoading: isLoadingGetUser } = api.user.useGetUserQuery(
     userId ?? skipToken,
@@ -113,7 +117,7 @@ export const Profile: FC = () => {
   return (
     <>
       {contextHolder}
-      <Card
+      <MainContent
         gap='middle'
         align='center'
         justify='space-between'>
@@ -131,23 +135,22 @@ export const Profile: FC = () => {
             <Typography.Text>{user?.email}</Typography.Text>
           </Flex>
         </Flex>
-        <Button
+        <EditButton
           size='large'
           disabled={isLoadingGetUser}
           onClick={editProfile}>
           Редактировать
-        </Button>
-      </Card>
+        </EditButton>
+      </MainContent>
 
       <Flex vertical>
         <Typography.Text type='secondary'>Язык:</Typography.Text>
-        <Select
+        <StylesSelect
           options={langOptions}
           value={user?.language}
           onChange={handleChangeLang}
           loading={isLoadingChangeUserLanguage}
           size='large'
-          style={{ width: '180px' }}
         />
       </Flex>
 
@@ -158,6 +161,16 @@ export const Profile: FC = () => {
         Уведомлять об изменении статуса заказов по email
       </Checkbox>
 
+      {isMobile && (
+        <Link to={ROUTE_PATHS.orderHistory}>
+          <Text
+            size={14}
+            color={tokens.colors.accentSecondary}>
+            История заказов
+          </Text>
+        </Link>
+      )}
+
       <LogoutButton
         disabled={isLoadingGetUser}
         onClick={handleLogout}>
@@ -166,6 +179,28 @@ export const Profile: FC = () => {
     </>
   );
 };
+
+const MainContent = styled(Card)`
+  @media screen and (${tokens.app.mediaMobileWidthS}) {
+    flex-direction: column;
+    align-items: start;
+    gap: 24px;
+  }
+`;
+
+const EditButton = styled(Button)`
+  @media screen and (${tokens.app.mediaMobileWidthS}) {
+    width: 100%;
+  }
+`;
+
+const StylesSelect = styled(Select)`
+  width: 180px;
+
+  @media screen and (${tokens.app.mediaMobileWidthS}) {
+    width: 100%;
+  }
+`;
 
 const LogoutButton = styled(Button)`
   align-self: flex-end;

@@ -12,11 +12,13 @@ import {
   Typography,
   type FormProps,
 } from 'antd';
+import styled from 'styled-components';
 
 import { api } from '@/api';
 import { ROUTE_PATHS } from '@/app/paths';
 import { selectorsAuth } from '@/features/auth';
 import { useAppSelector } from '@/store';
+import { tokens } from '@/theme/tokens';
 import { AvatarUpload, Card, Loader } from '@/uiKit';
 import utils from '@/utils';
 
@@ -112,7 +114,7 @@ export const ProfileEdit: FC = () => {
   }
 
   return (
-    <Card
+    <Content
       vertical
       gap='large'>
       {contextHolder}
@@ -125,7 +127,9 @@ export const ProfileEdit: FC = () => {
         initialValues={initialValues}
         onFinish={handleUpdateUser}>
         <Row gutter={16}>
-          <Col span={12}>
+          <Col
+            xs={{ flex: '100%' }}
+            sm={{ flex: '50%' }}>
             <Form.Item
               name='firstName'
               label='Имя:'
@@ -134,7 +138,9 @@ export const ProfileEdit: FC = () => {
               <Input size='large' />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col
+            xs={{ flex: '100%' }}
+            sm={{ flex: '50%' }}>
             <Form.Item
               name='lastName'
               label='Фамилия:'
@@ -143,7 +149,9 @@ export const ProfileEdit: FC = () => {
               <Input size='large' />
             </Form.Item>
           </Col>
-          <Col span={12}>
+          <Col
+            xs={{ flex: '100%' }}
+            sm={{ flex: '50%' }}>
             <Form.Item
               name='email'
               label='Email:'
@@ -155,7 +163,7 @@ export const ProfileEdit: FC = () => {
         </Row>
       </Form>
 
-      <Flex gap='small'>
+      <Controls gap='small'>
         <Button
           size='large'
           onClick={cancelEdit}>
@@ -168,7 +176,20 @@ export const ProfileEdit: FC = () => {
           onClick={form.submit}>
           Сохранить
         </Button>
-      </Flex>
-    </Card>
+      </Controls>
+    </Content>
   );
 };
+
+const Content = styled(Card)`
+  @media screen and (${tokens.app.mediaMobileWidthS}) {
+    align-items: center;
+  }
+`;
+
+const Controls = styled(Flex)`
+  @media screen and (${tokens.app.mediaMobileWidthS}) {
+    flex-direction: column;
+    width: 100%;
+  }
+`;

@@ -18,6 +18,7 @@ export const tokens = {
   typography: {
     fontFamily: 'Inter, Arial, Helvetica, sans-serif',
     fontSize: 16,
+    fontSizeMobile: 14,
     fontSizeHeading1: 30,
     fontSizeHeading2: 24,
     fontSizeHeading3: 20,
@@ -32,5 +33,7 @@ export const tokens = {
     maxwidth: '1180px',
     sidePaddingsDesktop: '30px',
     sidePaddingsMobile: '20px',
+    mediaMobileWidthS: 'max-width: 500px',
+    mediaMobileWidthM: 'max-width: 700px',
   },
 };

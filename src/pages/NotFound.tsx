@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { NotFoundIcon } from '@/assets';
 import { ROUTE_PATHS } from '@/app/paths';
 import { theme } from '@/theme/styledTheme';
+import { tokens } from '@/theme/tokens';
 
 export const NotFoundPage: FC = () => {
   const navigate = useNavigate();
@@ -53,8 +54,6 @@ export const NotFoundPage: FC = () => {
   );
 };
 
-const mediaMobileWidth = 'max-width: 700px';
-
 const Card = styled.div`
   width: 100%;
   max-width: 760px;
@@ -65,7 +64,7 @@ const Card = styled.div`
   align-items: center;
   gap: 34px;
 
-  @media screen and (${mediaMobileWidth}) {
+  @media screen and (${tokens.app.mediaMobileWidthM}) {
     grid-template-columns: 1fr;
   }
 `;
@@ -73,7 +72,7 @@ const Card = styled.div`
 const TextBlock = styled(Flex)`
   max-width: 420px;
 
-  @media screen and (${mediaMobileWidth}) {
+  @media screen and (${tokens.app.mediaMobileWidthM}) {
     align-items: center;
     text-align: center;
     max-width: 100%;

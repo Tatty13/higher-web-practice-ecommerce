@@ -11,7 +11,7 @@ const menuItems = [
   { key: '3', label: 'Корзина', to: ROUTE_PATHS.cart },
 ];
 
-export const AccountLayout: FC = () => {
+export const AccountLayoutDesktop: FC = () => {
   const location = useLocation();
 
   const currentMenuItem = menuItems.find((item) =>

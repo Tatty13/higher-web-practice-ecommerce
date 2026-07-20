@@ -2,6 +2,8 @@ import type { FC, ReactNode } from 'react';
 import { ConfigProvider } from 'antd';
 import ruRU from 'antd/es/locale/ru_RU';
 
+import utils from '@/utils';
+
 import { tokens } from './tokens';
 
 type AntConfigProps = {
@@ -9,6 +11,8 @@ type AntConfigProps = {
 };
 
 export const AntConfigProvider: FC<AntConfigProps> = ({ children }) => {
+  const { isMobile } = utils.responsive.useResponsive();
+
   return (
     <ConfigProvider
       locale={ruRU}
@@ -22,7 +26,12 @@ export const AntConfigProvider: FC<AntConfigProps> = ({ children }) => {
           colorBorder: tokens.colors.neutralDisable,
 
           fontFamily: tokens.typography.fontFamily,
-          fontSize: tokens.typography.fontSize,
+          fontSizeLG: isMobile
+            ? tokens.typography.fontSizeMobile
+            : tokens.typography.fontSize,
+          fontSize: isMobile
+            ? tokens.typography.fontSizeMobile
+            : tokens.typography.fontSize,
           fontSizeHeading1: tokens.typography.fontSizeHeading1,
           fontSizeHeading2: tokens.typography.fontSizeHeading2,
           fontSizeHeading3: tokens.typography.fontSizeHeading3,
@@ -31,6 +40,8 @@ export const AntConfigProvider: FC<AntConfigProps> = ({ children }) => {
           lineHeightHeading2: tokens.typography.lineHeightHeading2,
           lineHeightHeading3: tokens.typography.lineHeightHeading3,
           lineHeightHeading4: tokens.typography.lineHeightHeading4,
+
+          controlHeightLG: isMobile ? 36 : 40,
         },
         components: {
           Button: {
@@ -40,6 +51,10 @@ export const AntConfigProvider: FC<AntConfigProps> = ({ children }) => {
           Typography: {
             titleMarginBottom: 0,
             titleMarginTop: 0,
+          },
+
+          Select: {
+            singleItemHeightLG: isMobile ? 32 : 40,
           },
         },
       }}>
