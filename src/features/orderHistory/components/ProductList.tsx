@@ -1,13 +1,15 @@
 import type { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { Flex, List, Typography } from 'antd';
 import styled from 'styled-components';
 
 import { theme } from '@/theme/styledTheme';
 
-import type { OrderItem } from '../types';
-import utils from '@/utils';
-import { Link } from 'react-router-dom';
 import { ROUTE_PATHS } from '@/app/paths';
+import { tokens } from '@/theme/tokens';
+import utils from '@/utils';
+
+import type { OrderItem } from '../types';
 
 type ProductListOrderHistoryProps = {
   items: OrderItem[];
@@ -30,9 +32,8 @@ export const ProductLisOrderHistory: FC<ProductListOrderHistoryProps> = ({
               <Container
                 align='center'
                 gap='small'>
-                <img
+                <ProductImage
                   src={item.image}
-                  width={80}
                   alt={item.name}
                 />
                 <Flex vertical>
@@ -66,6 +67,14 @@ const ItemLink = styled(Link)`
 
 const Container = styled(Flex)`
   width: 100%;
+`;
+
+const ProductImage = styled.img`
+  width: 80px;
+
+  @media screen and (${tokens.app.mediaMobileWidthS}) {
+    width: 60px;
+  }
 `;
 
 const Title = styled(Typography.Text)`

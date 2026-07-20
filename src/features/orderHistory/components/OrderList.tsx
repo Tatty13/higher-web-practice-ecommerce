@@ -1,15 +1,15 @@
 import { useState, type FC } from 'react';
-import { Button, Flex, List, Typography } from 'antd';
+import { Button, List } from 'antd';
 import styled from 'styled-components';
 
 import { ArrowIcon } from '@/assets';
-import { theme } from '@/theme/styledTheme';
 import { Card, Divider } from '@/uiKit';
 import utils from '@/utils';
-import type { Order, OrderStatus } from '@/types';
+import type { Order } from '@/types';
 
-import { helpersOrderHistory } from '../helpers';
 import { ProductLisOrderHistory } from './ProductList';
+import { OrderDescriptionDesktop } from './OrderDescriptionDesktop';
+import { OrderDescriptionMobile } from './OrderDescriptionMobile';
 
 type OrderListProps = {
   items: Order[] | undefined;
@@ -17,6 +17,8 @@ type OrderListProps = {
 };
 
 export const OrderList: FC<OrderListProps> = ({ items, isLoading }) => {
+  const { isMobile } = utils.responsive.useResponsive();
+
   const [visibleProductList, setVisibleProductList] =
     useState<Record<string, boolean>>();
 
@@ -45,48 +47,11 @@ export const OrderList: FC<OrderListProps> = ({ items, isLoading }) => {
             <Card
               vertical
               key={order.id}>
-              <Flex justify='space-between'>
-                <Flex
-                  vertical
-                  gap='small'>
-                  <Flex
-                    gap='small'
-                    align='center'>
-                    <Typography.Title level={3}>
-                      {`от ${utils.date.formatDateToReadableString(order.createdAt)}`}
-                    </Typography.Title>
-                    <Typography.Text>№ {order.number.slice(6)}</Typography.Text>
-                  </Flex>
-                  <Flex
-                    gap='small'
-                    align='center'>
-                    <StyledOrderStatus
-                      strong
-                      status={order.status}>
-                      {helpersOrderHistory.orderStatusMap[order.status]}
-                    </StyledOrderStatus>
-                    <Typography.Text type='secondary'>
-                      {helpersOrderHistory.getDeliveryMethod(
-                        order.deliveryMethod,
-                        order.status,
-                      )}
-                    </Typography.Text>
-                  </Flex>
-                </Flex>
-                <Flex
-                  vertical
-                  align='flex-end'>
-                  <Typography.Title level={2}>
-                    {utils.finance.getFormatPriceWithCurrency(order.totalPrice)}
-                  </Typography.Title>
-                  <Typography.Text type='secondary'>
-                    {helpersOrderHistory.getPaymentDescription(
-                      order.paymentMethod,
-                      order.status,
-                    )}
-                  </Typography.Text>
-                </Flex>
-              </Flex>
+              {isMobile ? (
+                <OrderDescriptionMobile order={order} />
+              ) : (
+                <OrderDescriptionDesktop order={order} />
+              )}
               <Divider margin='16px 0 0' />
               {isShowProductList && (
                 <ProductLisOrderHistory items={order.items} />
@@ -105,13 +70,6 @@ export const OrderList: FC<OrderListProps> = ({ items, isLoading }) => {
     />
   );
 };
-
-const StyledOrderStatus = styled(Typography.Text)<{ status: OrderStatus }>`
-  color: ${({ status }) =>
-    status === 'delivered'
-      ? theme.colors.success
-      : theme.colors.accentSecondary};
-`;
 
 const StylesButton = styled(Button)`
   margin-top: 16px;
