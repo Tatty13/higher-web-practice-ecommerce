@@ -1,15 +1,16 @@
 import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Col, Flex, Row, Typography } from 'antd';
+import { Col, Flex, Row, Typography } from 'antd';
 import styled from 'styled-components';
 
 import { api } from '@/api';
 import { ROUTE_PATHS } from '@/app/paths';
 import { ShoppingImage } from '@/assets';
-import { Card } from '@/uiKit';
+import { tokens } from '@/theme/tokens';
 import utils from '@/utils';
 
 import { ProductLisCart } from './ProductList';
+import { Summary } from './Summary';
 
 export const Cart: FC = () => {
   const navigate = useNavigate();
@@ -28,9 +29,9 @@ export const Cart: FC = () => {
       gap='middle'>
       <Typography.Title level={2}>Корзина</Typography.Title>
 
-      <Row gutter={20}>
+      <Content gutter={20}>
         <Col
-          md={{ flex: '100%' }}
+          xs={{ flex: '100%' }}
           lg={{ flex: '65%' }}>
           {
             <ProductLisCart
@@ -39,43 +40,18 @@ export const Cart: FC = () => {
             />
           }
         </Col>
-        <Col
-          sm={{ flex: '100%' }}
-          md={{ flex: '50%' }}
+        <SummaryCol
+          xs={{ flex: '100%' }}
+          md={{ flex: '60%' }}
           lg={{ flex: '35%' }}>
-          <Card
-            vertical
-            gap='middle'>
-            <TextContainer
-              align='center'
-              justify='space-between'
-              gap='small'>
-              <Typography.Title level={3}>Ваша корзина</Typography.Title>
-              <Typography.Text type='secondary'>
-                {utils.declension.getProductCountDescription(totalItems)}
-              </Typography.Text>
-            </TextContainer>
-            <TextContainer
-              align='center'
-              justify='space-between'
-              gap='small'>
-              <Typography.Text type='secondary'>сумма заказа</Typography.Text>
-              <Typography.Title
-                level={1}
-                type='success'>
-                {utils.finance.getFormatPriceWithCurrency(totalPrice)}
-              </Typography.Title>
-            </TextContainer>
-            <Button
-              size='large'
-              type='primary'
-              disabled={!items?.length}
-              onClick={createOrder}>
-              Оформить заказ
-            </Button>
-          </Card>
-        </Col>
-      </Row>
+          <Summary
+            isDisabledSubmit={!items?.length}
+            totalPrice={utils.finance.getFormatPriceWithCurrency(totalPrice)}
+            totalItems={utils.declension.getProductCountDescription(totalItems)}
+            onSubmitOrder={createOrder}
+          />
+        </SummaryCol>
+      </Content>
       <Flex></Flex>
     </Container>
   );
@@ -84,8 +60,20 @@ export const Cart: FC = () => {
 const Container = styled(Flex)`
   height: 100%;
   background: url(${ShoppingImage}) right 0 bottom 0 / 35% no-repeat;
+
+  @media screen and (${tokens.app.mediaMobileWidthM}) {
+    background: none;
+  }
 `;
 
-const TextContainer = styled(Flex)`
-  width: 100%;
+const Content = styled(Row)`
+  @media screen and (${tokens.app.mediaMobileWidthM}) {
+    height: 100%;
+  }
+`;
+
+const SummaryCol = styled(Col)`
+  @media screen and (${tokens.app.mediaMobileWidthM}) {
+    align-self: flex-end;
+  }
 `;
