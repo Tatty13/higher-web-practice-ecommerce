@@ -24,17 +24,20 @@ import { Card, Divider, Loader } from '@/uiKit';
 import { selectorsAuth } from '@/features/auth';
 import { useAppSelector } from '@/store';
 import { theme } from '@/theme/styledTheme';
+import { tokens } from '@/theme/tokens';
 import utils from '@/utils';
 import type { CityOption, PickupPoint } from '@/types';
 
 import { helpersOrder } from '../helpers';
 import type { FormOrderValues } from '../types';
 import { PickupPointModal } from './PickupPointModal';
+import { OrderBlock } from './OrderBlock';
 
 export const Order: FC = () => {
   const navigate = useNavigate();
   const [notificationApi, contextHolder] = notification.useNotification();
   const [form] = Form.useForm<FormOrderValues>();
+  const { isMobile } = utils.responsive.useResponsive();
 
   const [isShowPickupPointMap, setIsShowPickupPointMap] = useState(false);
   const [selectedPickupPoint, setSelectedPickupPoint] = useState<PickupPoint>();
@@ -88,6 +91,7 @@ export const Order: FC = () => {
   const confirmPickupPoint = (pickupPoint: PickupPoint) => {
     setSelectedPickupPoint(pickupPoint);
     form.setFieldValue('pickupPointId', pickupPoint.id);
+    setIsShowPickupPointMap(false);
   };
 
   const submitForm = async () => {
@@ -163,26 +167,21 @@ export const Order: FC = () => {
       {contextHolder}
       <Row gutter={[20, 34]}>
         <Col
-          sm={{ flex: '100%' }}
-          md={{ flex: '100%' }}
+          xs={{ flex: '100%' }}
           lg={{ flex: '60%' }}>
           <Form
             form={form}
             layout='vertical'>
             <Flex
               vertical
-              gap='large'>
-              <Card
-                vertical
-                padding='medium'
-                gap={20}>
-                <Typography.Title level={3}>Способ оплаты</Typography.Title>
+              gap={isMobile ? 'middle' : 'large'}>
+              <OrderBlock title='Способ оплаты'>
                 <Form.Item
                   name='paymentMethod'
                   initialValue='card_online'
                   rules={[utils.validation.VALIDATION_RULES.required]}
                   noStyle>
-                  <Radio.Group size='large'>
+                  <Radio.Group size={isMobile ? 'middle' : 'large'}>
                     <Flex
                       vertical
                       gap='small'>
@@ -198,7 +197,7 @@ export const Order: FC = () => {
                         <AddNewCardBtn
                           icon={<PlusIcon />}
                           iconPosition='end'
-                          size='large'
+                          size={isMobile ? 'middle' : 'large'}
                           color='default'
                           variant='outlined'
                           onClick={addNewCard}>
@@ -211,18 +210,15 @@ export const Order: FC = () => {
                     </Flex>
                   </Radio.Group>
                 </Form.Item>
-              </Card>
-              <Card
-                vertical
-                padding='medium'
-                gap={20}>
-                <Typography.Title level={3}>Способ доставки</Typography.Title>
+              </OrderBlock>
+
+              <OrderBlock title='Способ доставки'>
                 <Form.Item
                   name='deliveryMethod'
                   initialValue='courier'
                   rules={[utils.validation.VALIDATION_RULES.required]}
                   noStyle>
-                  <Radio.Group size='large'>
+                  <Radio.Group size={isMobile ? 'middle' : 'large'}>
                     <Flex
                       wrap
                       gap='small'>
@@ -241,7 +237,7 @@ export const Order: FC = () => {
                 </Form.Item>
 
                 {deliveryMethod === 'courier' ? (
-                  <Flex
+                  <ResponsiveContainer
                     align='flex-end'
                     gap='small'>
                     <Form.Item
@@ -267,9 +263,9 @@ export const Order: FC = () => {
                         placeholder='улица, дом, квартира'
                       />
                     </Form.Item>
-                  </Flex>
+                  </ResponsiveContainer>
                 ) : (
-                  <Flex
+                  <ResponsiveContainer
                     gap='small'
                     align='center'>
                     <Button
@@ -295,7 +291,7 @@ export const Order: FC = () => {
                         {selectedPickupPoint?.workTime}
                       </Typography.Text>
                     </Flex>
-                  </Flex>
+                  </ResponsiveContainer>
                 )}
 
                 <Flex gap='small'>
@@ -304,17 +300,14 @@ export const Order: FC = () => {
                     {helpersOrder.getFakeDeliveryTime()}
                   </Typography.Text>
                 </Flex>
-              </Card>
-              <Card
-                vertical
-                padding='medium'
-                gap={20}>
-                <Typography.Title level={3}>Получатель</Typography.Title>
-                <Flex
+              </OrderBlock>
+
+              <OrderBlock title='Получатель'>
+                <UserInfoBlock
                   gap='large'
                   align='start'
                   justify='space-between'>
-                  <Flex
+                  <UserInfo
                     vertical
                     justify='center'
                     gap='small'>
@@ -324,7 +317,7 @@ export const Order: FC = () => {
                     <Typography.Text type='secondary'>
                       {user?.email}
                     </Typography.Text>
-                  </Flex>
+                  </UserInfo>
 
                   <Form.Item
                     name='phone'
@@ -338,7 +331,8 @@ export const Order: FC = () => {
                     ]}>
                     <Input placeholder='+7' />
                   </Form.Item>
-                </Flex>
+                </UserInfoBlock>
+
                 <Form.Item
                   name='comment'
                   label='Комментарий к заказу'>
@@ -347,19 +341,19 @@ export const Order: FC = () => {
                     autoSize={{ minRows: 2, maxRows: 6 }}
                   />
                 </Form.Item>
-              </Card>
+              </OrderBlock>
             </Flex>
           </Form>
         </Col>
 
         <Col
-          sm={{ flex: '100%' }}
+          xs={{ flex: '100%' }}
           md={{ flex: '60%' }}
           lg={{ flex: '40%' }}>
           <Card
             vertical
             padding='medium'
-            gap='middle'>
+            gap={isMobile ? 'small' : 'middle'}>
             <TextContainer
               align='center'
               justify='space-between'
@@ -443,4 +437,24 @@ const RadioButton = styled(Radio.Button)<{ stretch?: boolean }>`
 const AddNewCardBtn = styled(Button)`
   color: ${theme.colors.neutralPrimary};
   border-color: ${theme.colors.neutralDisable};
+`;
+
+const ResponsiveContainer = styled(Flex)`
+  @media screen and (${tokens.app.mediaMobileWidthM}) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+`;
+
+const UserInfoBlock = styled(ResponsiveContainer)`
+  @media screen and (${tokens.app.mediaMobileWidthM}) {
+    gap: 8px;
+  }
+`;
+
+const UserInfo = styled(Flex)`
+  @media screen and (${tokens.app.mediaMobileWidthM}) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;

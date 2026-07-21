@@ -4,9 +4,10 @@ import { Space, Typography, Modal, Alert, List, type ModalProps } from 'antd';
 import styled from 'styled-components';
 
 import { api } from '@/api';
-import { Card } from '@/uiKit';
+import { Card, Text } from '@/uiKit';
 
 import { theme } from '@/theme/styledTheme';
+import utils from '@/utils';
 import type { PickupPoint } from '@/types';
 
 type PickupPointModalProps = {
@@ -22,6 +23,8 @@ export const PickupPointModal: FC<PickupPointModalProps> = ({
   onCancel,
   onSelectPickupPoint,
 }) => {
+  const { isMobile } = utils.responsive.useResponsive();
+
   const {
     data: pickupPoints,
     isLoading: isLoadingPickupPoints,
@@ -66,16 +69,18 @@ export const PickupPointModal: FC<PickupPointModalProps> = ({
                     vertical
                     hoverable
                     active={isActive}
-                    padding='medium'>
-                    <Typography.Title level={3}>
+                    padding={isMobile ? 'small' : 'medium'}>
+                    <Typography.Title level={isMobile ? 4 : 3}>
                       {pickupPoint.name}
                     </Typography.Title>
 
                     <Space />
-                    <Typography.Text>{pickupPoint.address}</Typography.Text>
-                    <Typography.Text type='secondary'>
+                    <Text size={14}>{pickupPoint.address}</Text>
+                    <Text
+                      size={12}
+                      type='secondary'>
                       {pickupPoint.workTime}
-                    </Typography.Text>
+                    </Text>
                   </Card>
                 </List.Item>
               );
