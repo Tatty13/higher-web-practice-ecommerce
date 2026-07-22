@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import { Flex, type FlexProps } from 'antd';
 import styled from 'styled-components';
 
@@ -12,9 +12,7 @@ type ContainerProps = {
   hoverable: boolean;
 };
 
-type CardProps = Partial<ContainerProps> & {
-  children: ReactNode;
-};
+type CardProps = PropsWithChildren<Partial<ContainerProps>>;
 
 const paddingMap: Record<Padding, string> = {
   small: '16px',

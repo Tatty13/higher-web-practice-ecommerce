@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import { ConfigProvider } from 'antd';
 import ruRU from 'antd/es/locale/ru_RU';
 
@@ -6,11 +6,7 @@ import utils from '@/utils';
 
 import { tokens } from './tokens';
 
-type AntConfigProps = {
-  children: ReactNode;
-};
-
-export const AntConfigProvider: FC<AntConfigProps> = ({ children }) => {
+export const AntConfigProvider: FC<PropsWithChildren> = ({ children }) => {
   const { isMobile } = utils.responsive.useResponsive();
 
   return (

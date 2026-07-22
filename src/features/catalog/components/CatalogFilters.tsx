@@ -1,14 +1,13 @@
-import type { FC, ReactNode } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 import { Button, Checkbox, Flex, InputNumber, Radio, Typography } from 'antd';
 import styled from 'styled-components';
 
 import type { ProductFilters } from '@/types';
 import { Card, SwitchWithTitle } from '@/uiKit';
 
-type SectionProps = {
+type SectionProps = PropsWithChildren<{
   title: string;
-  children: ReactNode;
-};
+}>;
 
 const Section: FC<SectionProps> = ({ title, children }) => {
   return (

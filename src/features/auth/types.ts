@@ -1,6 +1,6 @@
-import type { JSX } from 'react';
+import type { PropsWithChildren } from 'react';
 
-export type AuthLayoutProps = {
+export type AuthLayoutProps = PropsWithChildren<{
   title: string;
   submitBtnText: string;
   additionalInfoTitle: string;
@@ -8,5 +8,4 @@ export type AuthLayoutProps = {
   redirectLinkPath: string;
   isLoading: boolean;
   onSubmit: () => void;
-  children: JSX.Element;
-};
+}>;
