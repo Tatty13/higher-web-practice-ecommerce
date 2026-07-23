@@ -2,13 +2,23 @@ import type { CreateOrderPayload, Order } from '@/types';
 
 import { baseApi } from '../baseApi';
 import { helpersOrderApi } from './helpers';
+import utils from '@/utils';
 
 const BASE_URL = '/orders';
 
 const orderApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getOrderHistory: builder.query<Order[], void>({
-      query: () => BASE_URL,
+      query: () => {
+        const userId = utils.storage.getUserIdFromLocalStorage();
+
+        return {
+          url: BASE_URL,
+          params: {
+            userId,
+          },
+        };
+      },
       providesTags: ['OrderHistory'],
     }),
     createOrder: builder.mutation<Order, CreateOrderPayload>({
@@ -23,27 +33,13 @@ const orderApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ['OrderHistory'],
     }),
-    getOrdersByUserId: builder.query<Order[], string>({
-      query: (userId) => ({
-        url: BASE_URL,
-        params: {
-          userId,
-        },
-      }),
-      providesTags: ['OrderHistory'],
-    }),
   }),
   overrideExisting: false,
 });
 
-const {
-  useGetOrderHistoryQuery,
-  useCreateOrderMutation,
-  useGetOrdersByUserIdQuery,
-} = orderApi;
+const { useGetOrderHistoryQuery, useCreateOrderMutation } = orderApi;
 
 export const methodsOrderApi = {
   useGetOrderHistoryQuery,
   useCreateOrderMutation,
-  useGetOrdersByUserIdQuery,
 };

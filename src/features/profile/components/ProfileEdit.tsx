@@ -1,6 +1,5 @@
 import { type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { skipToken } from '@reduxjs/toolkit/query';
 import {
   Button,
   Col,
@@ -16,8 +15,6 @@ import styled from 'styled-components';
 
 import { api } from '@/api';
 import { ROUTE_PATHS } from '@/app/paths';
-import { selectorsAuth } from '@/features/auth';
-import { useAppSelector } from '@/store';
 import { tokens } from '@/theme/tokens';
 import { AvatarUpload, Card, Loader } from '@/uiKit';
 import utils from '@/utils';
@@ -34,15 +31,13 @@ export const ProfileEdit: FC = () => {
   const navigate = useNavigate();
   const [notificationApi, contextHolder] = notification.useNotification();
 
-  const userId = useAppSelector(selectorsAuth.userId);
-
   const [form] = Form.useForm<Fields>();
 
   const {
     data: user,
     isLoading: isLoadingGetUser,
     refetch: refetchGetUser,
-  } = api.user.useGetUserQuery(userId ?? skipToken);
+  } = api.user.useGetUserQuery();
 
   const [
     updateUser,
@@ -74,7 +69,6 @@ export const ProfileEdit: FC = () => {
       }
 
       await updateUser({
-        userId: user!.id,
         data: values,
       });
 

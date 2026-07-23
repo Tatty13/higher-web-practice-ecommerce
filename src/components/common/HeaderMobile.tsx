@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { skipToken } from '@reduxjs/toolkit/query';
 import { Button } from 'antd';
 import styled from 'styled-components';
 
@@ -9,13 +8,9 @@ import { ROUTE_PATHS } from '@/app/paths';
 import { UserIcon, CartIcon, HomeIcon, MenuIcon } from '@/assets';
 import { LinkWithIcon } from '@/uiKit';
 import { theme } from '@/theme/styledTheme';
-import { useAppSelector } from '@/store';
-import { selectorsAuth } from '@/features/auth';
 
 export const HeaderMobile: FC = () => {
-  const userId = useAppSelector(selectorsAuth.userId);
-
-  const { currentData: user } = api.user.useGetUserQuery(userId ?? skipToken);
+  const { currentData: user } = api.user.useGetUserQuery();
 
   return (
     <StyledHeader>

@@ -1,6 +1,5 @@
 import { type FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { skipToken } from '@reduxjs/toolkit/query';
 import {
   Avatar,
   Button,
@@ -17,9 +16,8 @@ import styled from 'styled-components';
 import { UserIcon } from '@/assets';
 import { api } from '@/api';
 import { ROUTE_PATHS } from '@/app/paths';
-import { selectorsAuth } from '@/features/auth';
 import { actionsAuth } from '@/features/auth/slice';
-import { useAppDispatch, useAppSelector } from '@/store';
+import { useAppDispatch } from '@/store';
 import { tokens } from '@/theme/tokens';
 import { Card, Text } from '@/uiKit';
 import utils from '@/utils';
@@ -41,13 +39,10 @@ export const Profile: FC = () => {
 
   const [notificationApi, contextHolder] = notification.useNotification();
 
-  const userId = useAppSelector(selectorsAuth.userId);
-
   const { isMobile } = utils.responsive.useResponsive();
 
-  const { data: user, isLoading: isLoadingGetUser } = api.user.useGetUserQuery(
-    userId ?? skipToken,
-  );
+  const { data: user, isLoading: isLoadingGetUser } =
+    api.user.useGetUserQuery();
 
   const [
     changeUserLanguage,
@@ -71,10 +66,7 @@ export const Profile: FC = () => {
 
   const handleChangeLang: SelectProps['onChange'] = async (language) => {
     try {
-      if (!userId) return;
-
       await changeUserLanguage({
-        userId,
         language,
       });
 
@@ -90,10 +82,7 @@ export const Profile: FC = () => {
 
   const handleChangeNotification: CheckboxProps['onChange'] = async (evt) => {
     try {
-      if (!userId) return;
-
       await changeUserNotification({
-        userId,
         notifyByEmail: evt.target.checked,
       });
 

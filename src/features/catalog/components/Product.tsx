@@ -1,14 +1,12 @@
 import { useMemo, useState, type FC } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { skipToken } from '@reduxjs/toolkit/query';
 import { Button, Col, Flex, List, notification, Row, Typography } from 'antd';
 import styled from 'styled-components';
 
 import { api } from '@/api';
 import { ROUTE_PATHS } from '@/app/paths';
 import { MeditationImage, ShoppingBagIcon, StarIcon } from '@/assets';
-import { selectorsAuth } from '@/features/auth';
-import { useAppSelector } from '@/store';
+
 import { tokens } from '@/theme/tokens';
 import { Card, Divider, ImageCarousel, Loader, Text } from '@/uiKit';
 import utils from '@/utils';
@@ -24,8 +22,6 @@ export const Product: FC = () => {
 
   const [rating, setRating] = useState(0);
 
-  const userId = useAppSelector(selectorsAuth.userId);
-
   const {
     data: product,
     isLoading: isLoadingGetProduct,
@@ -34,7 +30,7 @@ export const Product: FC = () => {
   } = api.catalog.useGetProductByIdQuery(id!);
 
   const { data: ratings = [] } = api.catalog.useGetRatingsByProductIdQuery(id!);
-  const { data: user } = api.user.useGetUserQuery(userId ?? skipToken);
+  const { data: user } = api.user.useGetUserQuery();
   const { data: orders } = api.order.useGetOrderHistoryQuery();
 
   const [

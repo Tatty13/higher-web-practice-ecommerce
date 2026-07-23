@@ -2,6 +2,7 @@ import type { Cart, CartItem } from '@/types';
 import utils from '@/utils';
 
 import { baseApi } from '../baseApi';
+import { helpersApi } from '../helpers';
 import { helpersCartApi, type BaseQuery } from './helpers';
 
 const cartApi = baseApi.injectEndpoints({
@@ -11,7 +12,7 @@ const cartApi = baseApi.injectEndpoints({
         const userId = utils.storage.getUserIdFromLocalStorage();
 
         if (!userId) {
-          return helpersCartApi.getUnauthorizedError();
+          return helpersApi.getUnauthorizedError();
         }
 
         return helpersCartApi.getUserCart(baseQuery as BaseQuery, userId);
@@ -24,7 +25,7 @@ const cartApi = baseApi.injectEndpoints({
         const userId = utils.storage.getUserIdFromLocalStorage();
 
         if (!userId) {
-          return helpersCartApi.getUnauthorizedError();
+          return helpersApi.getUnauthorizedError();
         }
 
         const cartResult = await helpersCartApi.getOrCreateUserCart(
@@ -80,7 +81,7 @@ const cartApi = baseApi.injectEndpoints({
         const userId = utils.storage.getUserIdFromLocalStorage();
 
         if (!userId) {
-          return helpersCartApi.getUnauthorizedError();
+          return helpersApi.getUnauthorizedError();
         }
 
         const cartResult = await helpersCartApi.getOrCreateUserCart(
@@ -114,7 +115,7 @@ const cartApi = baseApi.injectEndpoints({
         const userId = utils.storage.getUserIdFromLocalStorage();
 
         if (!userId) {
-          return helpersCartApi.getUnauthorizedError();
+          return helpersApi.getUnauthorizedError();
         }
 
         const cartResult = await helpersCartApi.getOrCreateUserCart(
@@ -150,7 +151,7 @@ const cartApi = baseApi.injectEndpoints({
         const userId = utils.storage.getUserIdFromLocalStorage();
 
         if (!userId) {
-          return helpersCartApi.getUnauthorizedError();
+          return helpersApi.getUnauthorizedError();
         }
 
         const cartResult = await helpersCartApi.getOrCreateUserCart(
@@ -182,7 +183,7 @@ const cartApi = baseApi.injectEndpoints({
         const userId = utils.storage.getUserIdFromLocalStorage();
 
         if (!userId) {
-          return helpersCartApi.getUnauthorizedError();
+          return helpersApi.getUnauthorizedError();
         }
 
         return helpersCartApi.deleteCart(baseQuery as BaseQuery, userId);

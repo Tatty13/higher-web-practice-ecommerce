@@ -41,7 +41,7 @@ export const Login: FC = () => {
         throw new Error('Проверьте email или пароль');
       }
 
-      await getUser(user.id);
+      await getUser();
 
       dispatch(actionsAuth.setUserId(user.id));
       navigate(ROUTE_PATHS.main);

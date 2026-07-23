@@ -2,18 +2,11 @@ import { type FC } from 'react';
 import { Flex, Typography } from 'antd';
 
 import { api } from '@/api';
-import { selectorsAuth } from '@/features/auth';
-import { useAppSelector } from '@/store';
 
 import { OrderList } from './OrderList';
-import { skipToken } from '@reduxjs/toolkit/query';
 
 export const OrderHistory: FC = () => {
-  const userId = useAppSelector(selectorsAuth.userId);
-
-  const { data: items, isLoading } = api.order.useGetOrdersByUserIdQuery(
-    userId ?? skipToken,
-  );
+  const { data: items, isLoading } = api.order.useGetOrderHistoryQuery();
 
   return (
     <Flex

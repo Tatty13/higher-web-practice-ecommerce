@@ -10,18 +10,25 @@ import type {
 import utils from '@/utils';
 
 import { baseApi } from '../baseApi';
+import { helpersApi } from '../helpers';
 import { helpersUserApi } from './helpers';
 
 const BASE_URL = '/users';
 
 const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getUser: builder.query<UserProfile, string>({
-      query: (userId) => ({
-        url: `${BASE_URL}/${userId}`,
+    getUser: builder.query<UserProfile, void>({
+      query: () => ({
+        url: `${BASE_URL}/${helpersApi.getUserIdOrThrow()}`,
       }),
       transformResponse: helpersUserApi.transformResponse,
-      providesTags: (_result, _error, userId) => [{ type: 'User', id: userId }],
+      providesTags: ['User'],
+      transformErrorResponse: (response) => {
+        if (response.status === 401) {
+          utils.storage.removeUserIdFromLocalStorage();
+        }
+        return response;
+      },
     }),
 
     loginUser: builder.mutation<UserProfile | null, LoginPayload>({
@@ -92,46 +99,40 @@ const userApi = baseApi.injectEndpoints({
       UserProfile,
       ChangeUserLanguagePayload
     >({
-      query: ({ userId, language }) => ({
-        url: `${BASE_URL}/${userId}`,
+      query: ({ language }) => ({
+        url: `${BASE_URL}/${helpersApi.getUserIdOrThrow()}`,
         method: 'PATCH',
         body: {
           language,
         },
       }),
       transformResponse: helpersUserApi.transformResponse,
-      invalidatesTags: (_result, _error, { userId }) => [
-        { type: 'User', id: userId },
-      ],
+      invalidatesTags: ['User'],
     }),
 
     changeUserNotification: builder.mutation<
       UserProfile,
       ChangeUserNotificationPayload
     >({
-      query: ({ userId, notifyByEmail }) => ({
-        url: `${BASE_URL}/${userId}`,
+      query: ({ notifyByEmail }) => ({
+        url: `${BASE_URL}/${helpersApi.getUserIdOrThrow()}`,
         method: 'PATCH',
         body: {
           notifyByEmail,
         },
       }),
       transformResponse: helpersUserApi.transformResponse,
-      invalidatesTags: (_result, _error, { userId }) => [
-        { type: 'User', id: userId },
-      ],
+      invalidatesTags: ['User'],
     }),
 
     updateUser: builder.mutation<UserProfile, UpdateProfilePayload>({
-      query: ({ userId, data }) => ({
-        url: `${BASE_URL}/${userId}`,
+      query: ({ data }) => ({
+        url: `${BASE_URL}/${helpersApi.getUserIdOrThrow()}`,
         method: 'PATCH',
         body: data,
       }),
       transformResponse: helpersUserApi.transformResponse,
-      invalidatesTags: (_result, _error, { userId }) => [
-        { type: 'User', id: userId },
-      ],
+      invalidatesTags: ['User'],
     }),
   }),
   overrideExisting: false,

@@ -1,6 +1,5 @@
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { skipToken } from '@reduxjs/toolkit/query';
 import { Button, Flex } from 'antd';
 import styled from 'styled-components';
 
@@ -9,15 +8,11 @@ import { ROUTE_PATHS } from '@/app/paths';
 import { UserIcon, CartIcon } from '@/assets';
 import { Logo, LinkWithIcon } from '@/uiKit';
 import { theme } from '@/theme/styledTheme';
-import { useAppSelector } from '@/store';
-import { selectorsAuth } from '@/features/auth';
 
 import { Search } from './Search';
 
 export const HeaderDesktop: FC = () => {
-  const userId = useAppSelector(selectorsAuth.userId);
-
-  const { currentData: user } = api.user.useGetUserQuery(userId ?? skipToken);
+  const { currentData: user } = api.user.useGetUserQuery();
 
   return (
     <StyledHeader>

@@ -53,15 +53,6 @@ const buildCart = (items: CartItem[]): Omit<Cart, 'id' | 'userId'> => {
   };
 };
 
-const getUnauthorizedError = (): { error: FetchBaseQueryError } => {
-  return {
-    error: {
-      status: 401,
-      data: 'Пользователь не авторизован',
-    },
-  };
-};
-
 const getUserCart = async (
   baseQuery: BaseQuery,
   userId: string,
@@ -201,7 +192,6 @@ export const helpersCartApi = {
   createEmptyCart,
   createCartItem,
   buildCart,
-  getUnauthorizedError,
   getUserCart,
   getOrCreateUserCart,
   saveCart,

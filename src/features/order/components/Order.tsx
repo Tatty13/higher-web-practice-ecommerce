@@ -1,6 +1,5 @@
 import { useState, type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { skipToken } from '@reduxjs/toolkit/query';
 import {
   Button,
   Flex,
@@ -21,8 +20,6 @@ import { api } from '@/api';
 import { ROUTE_PATHS } from '@/app/paths';
 import { BasketImage, PlusIcon } from '@/assets';
 import { Card, Divider, Loader } from '@/uiKit';
-import { selectorsAuth } from '@/features/auth';
-import { useAppSelector } from '@/store';
 import { theme } from '@/theme/styledTheme';
 import { tokens } from '@/theme/tokens';
 import utils from '@/utils';
@@ -42,9 +39,7 @@ export const Order: FC = () => {
   const [isShowPickupPointMap, setIsShowPickupPointMap] = useState(false);
   const [selectedPickupPoint, setSelectedPickupPoint] = useState<PickupPoint>();
 
-  const userId = useAppSelector(selectorsAuth.userId);
-
-  const { data: user } = api.user.useGetUserQuery(userId ?? skipToken);
+  const { data: user } = api.user.useGetUserQuery();
 
   const {
     data: cart,

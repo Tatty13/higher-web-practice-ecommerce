@@ -33,16 +33,13 @@ export type UpdateProfilePayloadData = {
 };
 
 export type UpdateProfilePayload = {
-  userId: string;
   data: UpdateProfilePayloadData;
 };
 
 export type ChangeUserLanguagePayload = {
-  userId: string;
   language: User['language'];
 };
 
 export type ChangeUserNotificationPayload = {
-  userId: string;
   notifyByEmail: boolean;
 };
