@@ -26,16 +26,16 @@ const Page = styled(Flex)`
 `;
 
 const HeaderWrapper = styled.div`
-  border-bottom: 1px solid ${theme.colors.bgShadows};
+  border-top: 1px solid ${theme.colors.bgShadows};
 `;
 
 const ContentWrapper = styled.div`
   overflow-y: auto;
-  padding: 20px ${theme.app.sidePaddingsMobile};
   flex-grow: 1;
   background: ${theme.colors.bgPrimary};
 
   display: flex;
+  flex-direction: column;
 `;
 
 const Content = styled.main`
@@ -45,5 +45,5 @@ const Content = styled.main`
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
-  flex-direction: vertical;
+  padding: 20px ${theme.app.sidePaddingsMobile};
 `;
