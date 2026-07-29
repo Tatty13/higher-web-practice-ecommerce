@@ -1,10 +1,11 @@
 export { AvatarUpload } from './AvatarUpload';
 export { Card } from './Card';
 export { Divider } from './Divider';
-export { ImageCarousel } from './ImageCarousel';
+export { CarouselWithPreview, Carousel } from './Carousel';
 export { LinkWithIcon } from './LinkWithIcon';
 export { Loader } from './Loader';
 export { Logo } from './Logo';
 export { SwitchWithTitle } from './SwitchWithTitle';
 export { Text } from './Text';
 export { FixedContainer } from './FixedContainer';
+export { Stars } from './Stars';

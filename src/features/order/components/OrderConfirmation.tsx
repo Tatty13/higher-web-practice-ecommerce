@@ -199,7 +199,10 @@ export const OrderConfirmation: FC = () => {
         </Flex>
       </Card>
 
-      <Controls gap='large'>
+      <Flex
+        gap='large'
+        vertical={isMobile}
+        justify='space-between'>
         <Button
           type={isMobile ? 'default' : 'primary'}
           size='large'
@@ -225,7 +228,7 @@ export const OrderConfirmation: FC = () => {
             </Button>
           </>
         )}
-      </Controls>
+      </Flex>
     </Container>
   );
 };
@@ -257,14 +260,5 @@ const CustomerInfo = styled(Flex)`
     flex-direction: column;
     gap: 4px;
     align-items: start;
-  }
-`;
-
-const Controls = styled(Flex)`
-  justify-content: space-between;
-
-  @media screen and (${tokens.app.mediaMobileWidthS}) {
-    flex-direction: column;
-    justify-content: stretch;
   }
 `;

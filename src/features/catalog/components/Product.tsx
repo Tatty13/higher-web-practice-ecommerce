@@ -1,24 +1,24 @@
 import { useMemo, useState, type FC } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, Col, Flex, List, notification, Row, Typography } from 'antd';
+import { Button, Flex, notification, Typography } from 'antd';
 import styled from 'styled-components';
 
 import { api } from '@/api';
 import { ROUTE_PATHS } from '@/app/paths';
-import { MeditationImage, ShoppingBagIcon, StarIcon } from '@/assets';
 
-import { tokens } from '@/theme/tokens';
-import { Card, Divider, ImageCarousel, Loader, Text } from '@/uiKit';
+import { Loader } from '@/uiKit';
 import utils from '@/utils';
 
 import { helpersCatalog } from '../helpers';
-import { Rating, type RatingProps } from './Rating';
-import { RatingList } from './RatingList';
+import { type UserRatingProps } from './UserRating';
+import { ProductDesktop } from './ProductDesktop';
+import { ProductMobile } from './ProductMobile';
 
 export const Product: FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [notificationApi, contextHolder] = notification.useNotification();
+  const { isMobile } = utils.responsive.useResponsive();
 
   const [rating, setRating] = useState(0);
 
@@ -88,7 +88,7 @@ export const Product: FC = () => {
     }
   };
 
-  const handleAddRating: RatingProps['setRating'] = async (rating) => {
+  const handleAddRating: UserRatingProps['setRating'] = async (rating) => {
     try {
       if (!user) {
         throw new Error('Авторизуйтесь, чтобы оценить товар');
@@ -119,9 +119,8 @@ export const Product: FC = () => {
 
   if (!product || isErrorGetProduct) {
     return (
-      <Container
+      <NoProductContainer
         vertical
-        withImage
         gap='large'
         justify='flex-start'
         align='center'>
@@ -134,158 +133,55 @@ export const Product: FC = () => {
           onClick={refetchGetProduct}>
           Попробовать ещё раз
         </Button>
-      </Container>
+      </NoProductContainer>
+    );
+  }
+
+  if (isMobile) {
+    return (
+      <>
+        {contextHolder}
+        <ProductMobile
+          carouselImages={carouselImages}
+          product={product}
+          characteristics={characteristics}
+          ratings={ratings}
+          canUserRateProduct={canUserRateProduct}
+          isLoadingAddToCartBtn={isLoadingAddToCart}
+          isLoadingAddRating={isLoadingAddRating}
+          rating={rating}
+          handleAddToCart={handleAddToCart}
+          setRating={handleAddRating}
+        />
+      </>
     );
   }
 
   return (
-    <Container
-      vertical
-      gap='large'>
+    <>
       {contextHolder}
-      <Card
-        vertical
-        padding='large'>
-        <Row
-          gutter={[20, 30]}
-          style={{ width: '100%' }}>
-          <Col span={12}>
-            <ImageCarousel images={carouselImages} />
-          </Col>
-          <MainContent span={12}>
-            <Flex
-              gap='middle'
-              justify='space-between'>
-              <Flex
-                vertical
-                gap='large'>
-                <Typography.Title level={1}>{product.name}</Typography.Title>
-                <Typography.Title
-                  level={1}
-                  type='success'>
-                  {utils.finance.getFormatPriceWithCurrency(product.price)}
-                </Typography.Title>
-              </Flex>
-              <Flex
-                vertical
-                align='end'>
-                <Flex
-                  align='center'
-                  gap='small'>
-                  <StarIcon
-                    width={32}
-                    height={32}
-                    fill={tokens.colors.accentSecondary}
-                    color={tokens.colors.accentSecondary}
-                  />
-                  <Typography.Title level={1}>
-                    {helpersCatalog.getAverageRating(ratings)}
-                  </Typography.Title>
-                </Flex>
-                <Typography.Text type='secondary'>
-                  {helpersCatalog.getProductRatingDescription(ratings.length)}
-                </Typography.Text>
-              </Flex>
-            </Flex>
-            <Flex
-              gap='middle'
-              justify='space-between'
-              align='flex-end'>
-              <CartButton
-                type='primary'
-                size='large'
-                loading={isLoadingAddToCart}
-                disabled={!product.inStock}
-                onClick={handleAddToCart}>
-                <ShoppingBagIcon />
-              </CartButton>
-              <Typography.Text type='secondary'>
-                {product.inStock ? 'Есть' : 'Нет'} в наличии
-              </Typography.Text>
-            </Flex>
-
-            {product.description && (
-              <Flex
-                vertical
-                gap={4}>
-                <Typography.Text strong>Описание</Typography.Text>
-                <Typography.Text type='secondary'>
-                  {product.description}
-                </Typography.Text>
-              </Flex>
-            )}
-
-            {characteristics.length > 0 && (
-              <Flex
-                vertical
-                gap='small'>
-                <Typography.Text strong>О товаре</Typography.Text>
-                <List
-                  dataSource={characteristics}
-                  rowKey='key'
-                  size='small'
-                  renderItem={({ key, value }) => {
-                    return (
-                      <List.Item>
-                        <Text
-                          type='secondary'
-                          size={12}>
-                          {key}
-                        </Text>
-                        <Text>{value}</Text>
-                      </List.Item>
-                    );
-                  }}
-                />
-                <Divider color='light' />
-              </Flex>
-            )}
-          </MainContent>
-        </Row>
-      </Card>
-      <Card
-        vertical
-        gap='middle'
-        padding='large'>
-        {canUserRateProduct && (
-          <Flex
-            vertical
-            gap='small'>
-            <Typography.Text>Оцените усы</Typography.Text>
-            <Rating
-              value={rating}
-              disabled={isLoadingAddRating}
-              setRating={handleAddRating}
-            />
-          </Flex>
-        )}
-
-        <Flex vertical>
-          <Divider color='light' />
-          <RatingList ratings={ratings} />
-        </Flex>
-      </Card>
-    </Container>
+      <ProductDesktop
+        carouselImages={carouselImages}
+        product={product}
+        characteristics={characteristics}
+        ratings={ratings}
+        canUserRateProduct={canUserRateProduct}
+        isLoadingAddToCartBtn={isLoadingAddToCart}
+        isLoadingAddRating={isLoadingAddRating}
+        rating={rating}
+        handleAddToCart={handleAddToCart}
+        setRating={handleAddRating}
+      />
+    </>
   );
 };
 
-const Container = styled(Flex)<{ withImage?: boolean }>`
+const NoProductContainer = styled(Flex)`
   margin: 0 auto;
   width: 100%;
   max-width: 980px;
   height: 100%;
-  padding-top: ${({ withImage }) => (withImage ? '20px' : 'unset')};
+  padding-top: 20px;
 
-  background: ${({ withImage }) =>
-    withImage ? 'url(' + MeditationImage + ') center / 60% no-repeat' : 'none'};
-`;
-
-const MainContent = styled(Col)`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const CartButton = styled(Button)`
-  width: 180px;
+  background: url(' + MeditationImage + ') center / 60% no-repeat;
 `;

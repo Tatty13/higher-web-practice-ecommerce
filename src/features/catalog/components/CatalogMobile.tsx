@@ -8,7 +8,7 @@ import { ROUTE_PATHS } from '@/app/paths';
 import { Search } from '@/components/common/Search';
 import { FixedContainer, Loader } from '@/uiKit';
 
-import { CatalogList } from '../CatalogList';
+import { CatalogList } from './CatalogList';
 
 export const CatalogMobile: FC = () => {
   const navigate = useNavigate();

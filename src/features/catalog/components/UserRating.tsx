@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import { StarIcon } from '@/assets';
 import { tokens } from '@/theme/tokens';
 
-export type RatingProps = {
+export type UserRatingProps = {
   value: number;
   disabled: boolean;
   size?: number;
   setRating: (rating: number) => void;
 };
 
-export const Rating: FC<RatingProps> = ({
+export const UserRating: FC<UserRatingProps> = ({
   value,
   size = 32,
   disabled,

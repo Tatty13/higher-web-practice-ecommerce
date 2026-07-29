@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Empty, Flex } from 'antd';
+import { useEffect, useMemo, useRef, useState, type FC } from 'react';
+import { Empty, Flex, Carousel as AntCarousel } from 'antd';
 import styled from 'styled-components';
 
 import { theme } from '@/theme/styledTheme';
@@ -13,11 +13,29 @@ type ImageItem = {
   alt?: string;
 };
 
-type ImageCarouselProps = {
+export type CarouselProps = {
   images: ImageItem[] | undefined;
 };
 
-export const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
+export const Carousel: FC<CarouselProps> = ({ images }) => {
+  return (
+    <StyledCarousel
+      arrows
+      dots={false}>
+      {images?.map((image, idx) => (
+        <div>
+          <img
+            style={{ width: '70%', margin: '0 auto' }}
+            src={image.src}
+            alt={image.alt || `Изображение ${idx + 1}`}
+          />
+        </div>
+      ))}
+    </StyledCarousel>
+  );
+};
+
+export const CarouselWithPreview: FC<CarouselProps> = ({ images }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const thumbsViewportRef = useRef<HTMLDivElement | null>(null);
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -85,7 +103,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
                   thumbRefs.current[index] = el;
                 }}
                 type='button'
-                $active={index === activeIndex}
+                active={index === activeIndex}
                 onClick={() => selectImage(index)}
                 aria-label={`Открыть изображение ${index + 1}`}>
                 <ThumbImage
@@ -107,6 +125,14 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
     </Flex>
   );
 };
+
+const StyledCarousel = styled(AntCarousel)`
+  padding: 0;
+
+  & .slick-arrow {
+    color: ${theme.colors.accentPrimary};
+  }
+`;
 
 const MainImage = styled.img`
   width: 100%;
@@ -140,13 +166,13 @@ const CarouselTrack = styled.div`
   width: max-content;
 `;
 
-const ThumbButton = styled.button<{ $active: boolean }>`
+const ThumbButton = styled.button<{ active: boolean }>`
   padding: 0;
   width: ${THUMB_IMAGE_WIDTH}px;
   height: 96px;
   border-radius: 10px;
   border: 1px solid
-    ${({ $active }) => ($active ? theme.colors.neutralDisable : 'transparent')};
+    ${({ active }) => (active ? theme.colors.neutralDisable : 'transparent')};
   background: #fff;
   cursor: pointer;
   overflow: hidden;
