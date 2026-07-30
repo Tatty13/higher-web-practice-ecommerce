@@ -7,6 +7,12 @@ export const ROUTE_PATHS = {
   orderHistory: '/order-history',
   cart: '/cart',
   product: '/product',
+  catalog: '/catalog',
+  catalogCategories: '/catalog/categories',
+  catalogCategory: '/catalog/:category',
+  catalogSubCategory: '/catalog/:category/:subCategory',
+  catalogFilters: '/catalog/filters/:category/:subCategory',
+  catalogFiltersIndex: '/catalog/filters',
   order: '/order',
   orderConfirm: '/order-confirm',
 } as const;

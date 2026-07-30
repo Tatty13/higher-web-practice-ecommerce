@@ -27,7 +27,7 @@ export const HeaderMobile: FC = () => {
             title='Товары'
             Icon={MenuIcon}
             iconSize={18}
-            to={ROUTE_PATHS.main}
+            to={ROUTE_PATHS.catalog}
             withActiveStyle
           />
           <LinkWithIcon

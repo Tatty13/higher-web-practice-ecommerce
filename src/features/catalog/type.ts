@@ -19,3 +19,36 @@ export type ProductProps = {
   handleAddToCart: () => void;
   setRating: UserRatingProps['setRating'];
 };
+
+export type MustacheCategory =
+  | 'Классические'
+  | 'Исторические'
+  | 'Театральные'
+  | 'Экстравагантные'
+  | 'Современные';
+
+export type MustacheSubCategory =
+  | 'Деловые'
+  | 'Повседневные'
+  | 'Минимализм'
+  | 'Ранний XX век'
+  | 'XIX век'
+  | 'Сценические'
+  | 'Геометрические'
+  | 'Северные'
+  | 'Пустынные'
+  | 'Морские';
+
+export type MustacheStyle =
+  | 'Деловой'
+  | 'Винтаж'
+  | 'Театральный'
+  | 'Экспериментальный'
+  | 'Военный';
+
+export type Intensity = 'Низкая' | 'Средняя' | 'Высокая';
+
+export type CatalogNavListItem = {
+  label: string;
+  to?: string;
+};

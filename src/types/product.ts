@@ -15,6 +15,7 @@ export type ProductFilters = {
   category?: string;
   style?: string[];
   thickness?: string;
+  curliness?: string;
   inStock?: boolean;
   minPrice?: number;
   maxPrice?: number;

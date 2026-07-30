@@ -1,5 +1,6 @@
 import { Product } from '@/features/catalog';
+import type { FC } from 'react';
 
-export function ProductPage() {
+export const ProductPage: FC = () => {
   return <Product />;
-}
+};

@@ -1,16 +1,14 @@
 import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Alert, Flex, notification } from 'antd';
-import styled from 'styled-components';
+import { Alert, notification } from 'antd';
 
 import { api } from '@/api';
 import { ROUTE_PATHS } from '@/app/paths';
-import { Search } from '@/components/common/Search';
-import { FixedContainer, Loader } from '@/uiKit';
+import { Loader } from '@/uiKit';
 
 import { CatalogList } from './CatalogList';
 
-export const CatalogMobile: FC = () => {
+export const CatalogMobileMain: FC = () => {
   const navigate = useNavigate();
   const [notificationApi, contextHolder] = notification.useNotification();
 
@@ -59,15 +57,9 @@ export const CatalogMobile: FC = () => {
   }
 
   return (
-    <ContentContainer
-      vertical
-      gap='middle'>
+    <>
       {contextHolder}
-      <FixedContainer>
-        <Search />
-      </FixedContainer>
       <CatalogList
-        view='grid'
         gridStyle={{ gutter: 4, column: 2 }}
         items={catalogItems}
         currentProductId={currentProductId}
@@ -75,10 +67,6 @@ export const CatalogMobile: FC = () => {
         isLoadingAddToCart={isLoadingAddToCart}
         isErrorAddToCart={isErrorAddToCart}
       />
-    </ContentContainer>
+    </>
   );
 };
-
-const ContentContainer = styled(Flex)`
-  margin-top: 70px;
-`;

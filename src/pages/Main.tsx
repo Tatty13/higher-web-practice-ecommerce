@@ -1,8 +1,10 @@
-import { Catalog, CatalogMobile } from '@/features/catalog';
+import type { FC } from 'react';
+
+import { Catalog, CatalogMobileMain } from '@/features/catalog';
 import utils from '@/utils';
 
-export function MainPage() {
+export const MainPage: FC = () => {
   const { isMobile } = utils.responsive.useResponsive();
 
-  return isMobile ? <CatalogMobile /> : <Catalog />;
-}
+  return isMobile ? <CatalogMobileMain /> : <Catalog />;
+};

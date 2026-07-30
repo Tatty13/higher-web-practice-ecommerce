@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import type { ProductFilters } from '@/types';
 import { Card, SwitchWithTitle } from '@/uiKit';
 
+import { helpersCatalog } from '../helpers';
+import type { MustacheStyle } from '../type';
+
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -19,31 +22,6 @@ const Section: FC<SectionProps> = ({ title, children }) => {
     </Flex>
   );
 };
-
-const categoryOptions = [
-  'Классические',
-  'Исторические',
-  'Театральные',
-  'Экстравагантные',
-  'Современные',
-];
-
-type StyleOption =
-  | 'Деловой'
-  | 'Винтаж'
-  | 'Театральный'
-  | 'Экспериментальный'
-  | 'Военный';
-
-const styleOptions: StyleOption[] = [
-  'Деловой',
-  'Винтаж',
-  'Театральный',
-  'Экспериментальный',
-  'Военный',
-];
-
-const thicknessOptions = ['Низкая', 'Средняя', 'Высокая'];
 
 type CatalogFiltersProps = {
   filters: ProductFilters;
@@ -68,24 +46,31 @@ export const CatalogFilters: FC<CatalogFiltersProps> = ({
           value={filters.category}
           optionType='button'
           size='large'
-          options={categoryOptions}
+          options={helpersCatalog.mustacheCategories}
           onChange={(evt) => onChange({ category: evt.target.value })}
         />
       </Section>
       <Section title='Стиль'>
         <StyleGroup
           value={filters.style ?? []}
-          options={styleOptions}
+          options={helpersCatalog.mustacheStyles}
           onChange={(checkedOptions) =>
-            onChange({ style: checkedOptions as StyleOption[] })
+            onChange({ style: checkedOptions as MustacheStyle[] })
           }
         />
       </Section>
       <Section title='Густота'>
-        <ThicknessGroup
+        <IntensityGroup
           value={filters.thickness}
-          options={thicknessOptions}
+          options={helpersCatalog.intensityOptions}
           onChange={(evt) => onChange({ thickness: evt.target.value })}
+        />
+      </Section>
+      <Section title='Закрученность'>
+        <IntensityGroup
+          value={filters.curliness}
+          options={helpersCatalog.intensityOptions}
+          onChange={(evt) => onChange({ curliness: evt.target.value })}
         />
       </Section>
       <Section title='Фильтр'>
@@ -144,7 +129,7 @@ const StyleGroup = styled(Checkbox.Group)`
   gap: 8px;
 `;
 
-const ThicknessGroup = styled(Radio.Group)`
+const IntensityGroup = styled(Radio.Group)`
   display: flex;
   flex-direction: column;
   gap: 12px;

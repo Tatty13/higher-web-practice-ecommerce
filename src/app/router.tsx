@@ -5,8 +5,13 @@ import {
   AccountLayout,
   ProfileLayout,
   AuthLayout,
+  CatalogLayout,
 } from '@/components/layout';
-import { ProtectedRoute, PublicOnlyRoute } from '@/components/common';
+import {
+  MobileOnlyRoute,
+  ProtectedRoute,
+  PublicOnlyRoute,
+} from '@/components/common';
 import {
   CartPage,
   ProfilePage,
@@ -19,6 +24,11 @@ import {
   RegistrationPage,
   LoginPage,
   NotFoundPage,
+  CatalogPage,
+  CatalogCategoryPage,
+  CatalogSubCategoryPage,
+  CatalogFiltersPage,
+  CatalogCategoriesPage,
 } from '@/pages';
 
 import { ROUTE_PATHS } from './paths';
@@ -28,8 +38,36 @@ const router = createBrowserRouter([
     path: '/',
     element: <MainLayout />,
     children: [
-      { index: true, element: <MainPage /> },
+      {
+        element: <CatalogLayout />,
+        children: [
+          { index: true, element: <MainPage /> },
+          {
+            element: <MobileOnlyRoute />,
+            children: [
+              { path: `${ROUTE_PATHS.catalog}`, element: <CatalogPage /> },
+              {
+                path: `${ROUTE_PATHS.catalogCategories}`,
+                element: <CatalogCategoriesPage />,
+              },
+              {
+                path: `${ROUTE_PATHS.catalogCategory}`,
+                element: <CatalogCategoryPage />,
+              },
+              {
+                path: `${ROUTE_PATHS.catalogSubCategory}`,
+                element: <CatalogSubCategoryPage />,
+              },
+            ],
+          },
+        ],
+      },
       { path: `${ROUTE_PATHS.product}/:id`, element: <ProductPage /> },
+      {
+        path: `${ROUTE_PATHS.catalogFilters}`,
+        element: <MobileOnlyRoute />,
+        children: [{ index: true, element: <CatalogFiltersPage /> }],
+      },
 
       {
         element: <ProtectedRoute />,

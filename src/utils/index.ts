@@ -6,6 +6,7 @@ import * as storage from './storage';
 import * as debounce from './debounce';
 import * as declension from './declension';
 import * as responsive from './responsive';
+import * as qs from './qs';
 
 const utils = {
   validation,
@@ -16,6 +17,7 @@ const utils = {
   debounce,
   declension,
   responsive,
+  qs,
 };
 
 export default utils;

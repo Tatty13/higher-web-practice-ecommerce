@@ -1,5 +1,7 @@
+import type { FC } from 'react';
+
 import { Order } from '@/features/order';
 
-export function OrderPage() {
+export const OrderPage: FC = () => {
   return <Order />;
-}
+};

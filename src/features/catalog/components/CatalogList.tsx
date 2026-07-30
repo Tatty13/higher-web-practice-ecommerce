@@ -9,7 +9,7 @@ import { helpersCatalog } from '../helpers';
 import { CatalogItem } from './CatalogItem';
 
 type CatalogListProps = {
-  view: ProductView | undefined;
+  view?: ProductView;
   items: Product[];
   currentProductId?: string;
   isLoadingAddToCart: boolean;
@@ -20,7 +20,7 @@ type CatalogListProps = {
 };
 
 export const CatalogList: FC<CatalogListProps> = ({
-  view,
+  view = 'grid',
   items,
   currentProductId,
   isLoadingAddToCart,
