@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import '@ant-design/v5-patch-for-react-19';
 
 import { App } from './app/App';
-import { ErrorBoundary } from './components/common';
+import { ErrorBoundary } from './common/components';
 import { AntConfigProvider } from './theme/AntConfig';
 import { theme } from './theme/styledTheme';
 import { store } from './store';

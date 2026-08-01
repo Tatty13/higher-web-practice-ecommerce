@@ -6,12 +6,12 @@ import {
   ProfileLayout,
   AuthLayout,
   CatalogLayout,
-} from '@/components/layout';
+} from '@/common/layout';
 import {
   MobileOnlyRoute,
   ProtectedRoute,
   PublicOnlyRoute,
-} from '@/components/common';
+} from '@/common/components';
 import {
   CartPage,
   ProfilePage,

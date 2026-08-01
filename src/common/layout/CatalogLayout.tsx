@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { Flex } from 'antd';
 import styled from 'styled-components';
 
-import { Search } from '@/components/common/Search';
+import { Search } from '@/common/components/Search';
 import { FixedContainer } from '@/uiKit';
 import utils from '@/utils';
 
