@@ -7,12 +7,18 @@ import { theme } from '@/theme/styledTheme';
 type Padding = 'small' | 'medium' | 'large';
 
 type ContainerProps = {
-  padding: Padding;
-  active: boolean;
-  hoverable: boolean;
+  $padding: Padding;
+  $active: boolean;
+  $hoverable: boolean;
 };
 
-type CardProps = PropsWithChildren<Partial<ContainerProps>>;
+type CardProps = PropsWithChildren<
+  Partial<{
+    padding: Padding;
+    active: boolean;
+    hoverable: boolean;
+  }>
+>;
 
 const paddingMap: Record<Padding, string> = {
   small: '16px',
@@ -29,9 +35,9 @@ export const Card: FC<FlexProps & CardProps> = ({
 }) => {
   return (
     <Container
-      padding={padding}
-      active={active}
-      hoverable={hoverable}
+      $padding={padding}
+      $active={active}
+      $hoverable={hoverable}
       {...flexProps}>
       {children}
     </Container>
@@ -39,21 +45,21 @@ export const Card: FC<FlexProps & CardProps> = ({
 };
 
 const Container = styled(Flex)<ContainerProps>`
-  padding: ${({ padding }) => paddingMap[padding]};
+  padding: ${({ $padding }) => paddingMap[$padding]};
   width: 100%;
   border-radius: 12px;
-  background: ${({ active }) =>
-    active ? theme.colors.bgShadows : theme.colors.bgSecondary};
-  box-shadow: ${({ active }) =>
-      active ? theme.colors.bgDisable : theme.colors.bgShadows}
+  background: ${({ $active }) =>
+    $active ? theme.colors.bgShadows : theme.colors.bgSecondary};
+  box-shadow: ${({ $active }) =>
+      $active ? theme.colors.bgDisable : theme.colors.bgShadows}
     0 4px 8px;
-  cursor: ${({ hoverable }) => (hoverable ? 'pointer' : 'default')};
+  cursor: ${({ $hoverable }) => ($hoverable ? 'pointer' : 'default')};
 
   &:hover {
-    background: ${({ hoverable, active }) =>
-      hoverable && active
+    background: ${({ $hoverable, $active }) =>
+      $hoverable && $active
         ? theme.colors.bgShadows
-        : hoverable
+        : $hoverable
           ? theme.colors.bgDisable
           : theme.colors.bgSecondary};
   }

@@ -1,5 +1,5 @@
 import { render, screen, act } from '@testing-library/react';
-import { useDebouncedValue } from './debounce.tsx';
+import { useDebouncedValue } from './debounce';
 
 jest.useFakeTimers();
 

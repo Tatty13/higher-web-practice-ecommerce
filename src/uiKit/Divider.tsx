@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { Divider as AntDivider } from 'antd';
 import styled from 'styled-components';
 
@@ -7,7 +8,7 @@ type Color = 'light' | 'dark';
 
 type DividerProps = {
   color?: Color;
-  margin?: string;
+  margin?: CSSProperties['margin'];
 };
 
 const colorsMap: Record<Color, string> = {

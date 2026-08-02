@@ -1,13 +1,22 @@
 {
-  "extends": "./tsconfig.app.json",
   "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "CommonJS",
     "moduleResolution": "node",
-    "verbatimModuleSyntax": false,
-    "isolatedModules": false,
-    "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["jest", "@testing-library/jest-dom", "node"]
+    "noEmit": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["jest", "@testing-library/jest-dom", "node"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "resolveJsonModule": true
   },
-  "include": ["src", "jest.setup.ts", "jest.config.ts"]
+  "include": ["src", "jest.setup.ts", "jest.config.ts"],
+  "exclude": ["node_modules"]
 }
