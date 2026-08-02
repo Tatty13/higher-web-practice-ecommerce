@@ -405,7 +405,7 @@ export const Order: FC = () => {
       </Row>
       <PickupPointModal
         open={isShowPickupPointMap}
-        selectedPickupPointId={pickupPointId}
+        selectedPickupPointId={pickupPointId ?? ''}
         onCancel={closePickupPointMap}
         onSelectPickupPoint={confirmPickupPoint}
       />
