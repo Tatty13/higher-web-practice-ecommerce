@@ -101,7 +101,7 @@ const sortProducts = (
       );
 
     default:
-      return copy;
+      return items;
   }
 };
 
@@ -178,6 +178,9 @@ const canUserRateProduct = ({
 const parseFiltersFromSearchParams = (
   searchParams: URLSearchParams,
 ): ProductFilters => {
+  const inStockParam = searchParams.get('inStock');
+  const styleParam = searchParams.getAll('style');
+
   const filters: ProductFilters = {
     minPrice: searchParams.get('minPrice')
       ? Number(searchParams.get('minPrice'))
@@ -189,8 +192,8 @@ const parseFiltersFromSearchParams = (
 
     thickness: searchParams.get('thickness') ?? undefined,
     curliness: searchParams.get('curliness') ?? undefined,
-    inStock: searchParams.get('inStock') === 'true',
-    style: searchParams.getAll('style'),
+    inStock: inStockParam !== null ? inStockParam === 'true' : undefined,
+    style: styleParam.length ? styleParam : undefined,
   };
 
   return filters;
