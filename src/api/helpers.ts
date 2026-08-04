@@ -19,7 +19,19 @@ const getUserIdOrThrow = () => {
   return userId;
 };
 
+type ApiError = {
+  status: number;
+  data?: {
+    message?: string;
+  };
+};
+
+const isApiError = (err: unknown): err is ApiError => {
+  return typeof err === 'object' && err !== null && 'status' in err;
+};
+
 export const helpersApi = {
   getUnauthorizedError,
   getUserIdOrThrow,
+  isApiError,
 };

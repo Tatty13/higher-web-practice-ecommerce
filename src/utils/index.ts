@@ -7,6 +7,7 @@ import * as debounce from './debounce';
 import * as declension from './declension';
 import * as responsive from './responsive';
 import * as qs from './qs';
+import * as test from './testUtils';
 
 const utils = {
   validation,
@@ -18,6 +19,7 @@ const utils = {
   declension,
   responsive,
   qs,
+  test,
 };
 
 export default utils;

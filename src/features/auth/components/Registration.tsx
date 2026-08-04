@@ -7,6 +7,7 @@ import { ROUTE_PATHS } from '@/app/paths';
 import utils from '@/utils';
 
 import { Auth } from './Auth';
+import { helpersApi } from '@/api/helpers';
 
 type Fields = {
   firstName: string;
@@ -21,8 +22,7 @@ export const Registration: FC = () => {
   const [notificationApi, contextHolder] = notification.useNotification();
   const navigate = useNavigate();
 
-  const [registerUser, { isLoading, isError, error }] =
-    api.user.useRegisterUserMutation();
+  const [registerUser, { isLoading }] = api.user.useRegisterUserMutation();
 
   const onFinish: FormProps<Fields>['onFinish'] = async (values) => {
     try {
@@ -30,17 +30,23 @@ export const Registration: FC = () => {
         throw new Error('Пароли не совпадают');
       }
 
-      await registerUser(values);
-
-      if (isError) {
-        throw new Error(error?.toString());
-      }
+      await registerUser(values).unwrap();
 
       navigate(ROUTE_PATHS.login);
     } catch (err) {
+      let description: string | undefined;
+
+      if (err instanceof Error) {
+        description = err.message;
+      }
+
+      if (helpersApi.isApiError(err)) {
+        description = err.data?.message;
+      }
+
       notificationApi.error({
         message: 'Ошибка регистрации',
-        description: (err instanceof Error && err?.message) || '',
+        description: description || 'Не удалось зарегистрировать пользователя',
       });
     }
   };
