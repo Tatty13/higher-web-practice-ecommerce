@@ -91,7 +91,7 @@ export const createMockProduct = (
   name: 'Председатель',
   description:
     'Густые прямые усы с характерным направлением вниз. Подходят для уверенных решений и серьёзных заявлений.',
-  price: 5590,
+  price: 150,
   images: [
     '/mustashes/chairman/0.png',
     '/mustashes/chairman/1.png',
@@ -153,23 +153,7 @@ export const createMockCartItem = (
 ): CartItem => ({
   productId: 'product-1',
   price: 150,
-  quantity: 2,
-  product: {
-    id: 'product-1',
-    name: 'Усы 1',
-    description: 'Описание',
-    price: 150,
-    createdAt: '2026-01-01T00:00:00.000Z',
-    rating: 5,
-    ratingCount: 1,
-    inStock: true,
-    images: ['image-1.jpg'],
-    characteristics: {
-      категория: 'Классические',
-      стиль: 'Деловой',
-      густота: 'Средняя',
-      закрученность: 'Низкая',
-    },
-  },
+  quantity: 1,
+  product: createMockProduct(),
   ...overrides,
 });

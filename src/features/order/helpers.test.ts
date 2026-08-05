@@ -30,7 +30,7 @@ describe('Формирование payload для создание заказа'
     const result = helpersOrder.buildCreateOrderPayload({
       user: utils.mock.createMockUser(),
       cartItems: [utils.mock.createMockCartItem()],
-      totalPrice: 300,
+      totalPrice: 150,
       formValues: createFormValues(),
     });
 
@@ -39,13 +39,13 @@ describe('Формирование payload для создание заказа'
       items: [
         {
           productId: 'product-1',
-          name: 'Усы 1',
-          image: 'image-1.jpg',
+          name: 'Председатель',
+          image: '/mustashes/chairman/0.png',
           price: 150,
-          quantity: 2,
+          quantity: 1,
         },
       ],
-      totalPrice: 300,
+      totalPrice: 150,
       paymentMethod: 'card_online',
       deliveryMethod: 'courier',
       deliveryAddress: 'Москва, ул. Летняя, д. 1',
