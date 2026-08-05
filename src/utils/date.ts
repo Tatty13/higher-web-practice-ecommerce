@@ -3,6 +3,5 @@ export const formatDateToReadableString = (date: string): string => {
     day: '2-digit',
     month: 'long',
     year: 'numeric',
-    timeZone: 'UTC',
   }).format(new Date(date));
 };

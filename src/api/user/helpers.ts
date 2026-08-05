@@ -14,7 +14,7 @@ const createNewUser = (data: RegisterPayload): User => {
     id: crypto.randomUUID(),
     language: 'ru',
     notifyByEmail: false,
-    createdAt: new Date().toISOString(),
+    createdAt: new Date().toString(),
   };
 };
 

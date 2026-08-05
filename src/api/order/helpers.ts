@@ -14,7 +14,7 @@ const createOrderEntity = (payload: CreateOrderPayload): Order => {
     pickupPointId: payload.pickupPointId,
     customer: payload.customer,
     comment: payload.comment,
-    createdAt: new Date().toISOString(),
+    createdAt: new Date().toString(),
   };
 };
 

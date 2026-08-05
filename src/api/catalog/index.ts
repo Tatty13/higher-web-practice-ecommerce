@@ -42,7 +42,7 @@ const catalogApi = baseApi.injectEndpoints({
         method: 'POST',
         body: {
           ...body,
-          createdAt: new Date().toISOString(),
+          createdAt: new Date().toString(),
           id: crypto.randomUUID(),
         },
       }),
