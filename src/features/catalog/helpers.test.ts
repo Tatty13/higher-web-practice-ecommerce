@@ -1,113 +1,24 @@
-import {
-  Order,
-  Product,
-  ProductFilters,
-  ProductRating,
-  UserProfile,
-} from '@/types';
+import { Product, ProductFilters, ProductRating } from '@/types';
 import { helpersCatalog } from './helpers';
-
-type ProductCharacteristics = Product['characteristics'];
-
-const createCharacteristics = (
-  overrides: Partial<ProductCharacteristics> = {},
-): ProductCharacteristics => ({
-  категория: 'Классические',
-  стиль: 'Деловой',
-  густота: 'Средняя',
-  подкатегория: 'Деловые',
-  форма: 'Короткий прямоугольник',
-  закрученность: 'Низкая',
-  харизма: '5',
-  ...overrides,
-});
-
-const createProduct = (overrides: Partial<Product> = {}): Product => ({
-  id: 'product-1',
-  name: 'Председатель',
-  description:
-    'Густые прямые усы с характерным направлением вниз. Подходят для уверенных решений и серьёзных заявлений.',
-  price: 5590,
-  images: [
-    '/mustashes/chairman/0.png',
-    '/mustashes/chairman/1.png',
-    '/mustashes/chairman/2.png',
-    '/mustashes/chairman/3.png',
-  ],
-  inStock: true,
-  rating: 4.5,
-  ratingCount: 10,
-  createdAt: '2026-03-01T09:00:00Z',
-  characteristics: createCharacteristics(),
-  ...overrides,
-});
-
-const createRating = (
-  overrides: Partial<ProductRating> = {},
-): ProductRating => ({
-  id: 'a3e2c1b0-9f8e-4d7c-8b6a-5c4d3e2f1a00',
-  userId: 'user-1',
-  productId: 'product-1',
-  userName: 'Тестов Т.',
-  rating: 5,
-  createdAt: '2026-03-05T12:00:00Z',
-  ...overrides,
-});
-
-const createUser = (overrides: Partial<UserProfile> = {}): UserProfile => ({
-  id: 'user-1',
-  firstName: 'Тест',
-  lastName: 'Тестов',
-  email: 'test@test.com',
-  language: 'ru',
-  notifyByEmail: false,
-  createdAt: '2026-07-22T20:24:13.519Z',
-  ...overrides,
-});
-
-const createOrder = (productId: string): Order => ({
-  id: 'order-1',
-  number: 'ЗАКАЗ-0000000123456',
-  userId: 'user-1',
-  status: 'pending',
-  totalPrice: 100,
-  paymentMethod: 'cash',
-  deliveryMethod: 'courier',
-  createdAt: '2024-01-01T00:00:00.000Z',
-  items: [
-    {
-      productId,
-      name: 'Усы',
-      image: 'image.jpg',
-      price: 100,
-      quantity: 1,
-    },
-  ],
-  customer: {
-    email: 'user@test.ru',
-    firstName: 'Иван',
-    lastName: 'Иванов',
-    phone: '+79999999999',
-  },
-});
+import utils from '@/utils';
 
 describe('Сортировка товаров', () => {
   const products: Product[] = [
-    createProduct({
+    utils.mock.createMockProduct({
       id: '1',
       price: 300,
       createdAt: '2026-02-10T10:00:00.000Z',
       rating: 4.2,
       ratingCount: 10,
     }),
-    createProduct({
+    utils.mock.createMockProduct({
       id: '2',
       price: 100,
       createdAt: '2026-01-10T10:00:00.000Z',
       rating: 4.8,
       ratingCount: 4,
     }),
-    createProduct({
+    utils.mock.createMockProduct({
       id: '3',
       price: 200,
       createdAt: '2026-03-10T10:00:00.000Z',
@@ -149,33 +60,33 @@ describe('Сортировка товаров', () => {
 
 describe('Фильтрация товаров', () => {
   const products: Product[] = [
-    createProduct({
+    utils.mock.createMockProduct({
       id: '1',
       price: 100,
       inStock: true,
-      characteristics: createCharacteristics({
+      characteristics: utils.mock.createMockCharacteristics({
         категория: 'Классические',
         стиль: 'Деловой',
         густота: 'Высокая',
         закрученность: 'Низкая',
       }),
     }),
-    createProduct({
+    utils.mock.createMockProduct({
       id: '2',
       price: 200,
       inStock: false,
-      characteristics: createCharacteristics({
+      characteristics: utils.mock.createMockCharacteristics({
         категория: 'Исторические',
         стиль: 'Винтаж',
         густота: 'Средняя',
         закрученность: 'Средняя',
       }),
     }),
-    createProduct({
+    utils.mock.createMockProduct({
       id: '3',
       price: 300,
       inStock: true,
-      characteristics: createCharacteristics({
+      characteristics: utils.mock.createMockCharacteristics({
         категория: 'Классические',
         стиль: 'Театральный',
         густота: 'Низкая',
@@ -285,9 +196,9 @@ describe('Получение среднего рейтинга', () => {
 
   it('Возвращает среднее значение с одним десятичным знаком', () => {
     const ratings: ProductRating[] = [
-      createRating({ rating: 5 }),
-      createRating({ userId: 'user-2', rating: 4 }),
-      createRating({ userId: 'user-3', rating: 3 }),
+      utils.mock.createMockRating({ rating: 5 }),
+      utils.mock.createMockRating({ userId: 'user-2', rating: 4 }),
+      utils.mock.createMockRating({ userId: 'user-3', rating: 3 }),
     ];
 
     expect(helpersCatalog.getAverageRating(ratings)).toBe('4.0');
@@ -298,7 +209,7 @@ describe('Проверка возможности выставить рейти�
   it('Возвращает false, если нет данных пользователя', () => {
     const result = helpersCatalog.canUserRateProduct({
       user: undefined,
-      orders: [createOrder('product-1')],
+      orders: [utils.mock.createMockOrder('product-1')],
       ratings: [],
       productId: 'product-1',
     });
@@ -308,8 +219,8 @@ describe('Проверка возможности выставить рейти�
 
   it('Возвращает false, если не передан productId', () => {
     const result = helpersCatalog.canUserRateProduct({
-      user: createUser(),
-      orders: [createOrder('product-1')],
+      user: utils.mock.createMockUser(),
+      orders: [utils.mock.createMockOrder('product-1')],
       ratings: [],
       productId: undefined,
     });
@@ -319,8 +230,8 @@ describe('Проверка возможности выставить рейти�
 
   it('Возвращает false, если пользователь не покупал товар', () => {
     const result = helpersCatalog.canUserRateProduct({
-      user: createUser(),
-      orders: [createOrder('product-1')],
+      user: utils.mock.createMockUser(),
+      orders: [utils.mock.createMockOrder('product-1')],
       ratings: [],
       productId: 'product-2',
     });
@@ -330,9 +241,9 @@ describe('Проверка возможности выставить рейти�
 
   it('Возвращает false, если пользователь уже выставлял оценку', () => {
     const result = helpersCatalog.canUserRateProduct({
-      user: createUser(),
-      orders: [createOrder('product-1')],
-      ratings: [createRating({ userId: 'user-1' })],
+      user: utils.mock.createMockUser(),
+      orders: [utils.mock.createMockOrder('product-1')],
+      ratings: [utils.mock.createMockRating({ userId: 'user-1' })],
       productId: 'product-1',
     });
 
@@ -341,9 +252,9 @@ describe('Проверка возможности выставить рейти�
 
   it('Возвращает true, если пользователь покупал товар, но ещё не выставлял оценку', () => {
     const result = helpersCatalog.canUserRateProduct({
-      user: createUser(),
-      orders: [createOrder('product-1')],
-      ratings: [createRating({ userId: 'user-2' })],
+      user: utils.mock.createMockUser(),
+      orders: [utils.mock.createMockOrder('product-1')],
+      ratings: [utils.mock.createMockRating({ userId: 'user-2' })],
       productId: 'product-1',
     });
 

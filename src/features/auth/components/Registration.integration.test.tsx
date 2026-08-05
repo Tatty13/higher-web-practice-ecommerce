@@ -89,7 +89,7 @@ describe('Интеграционный тест Регистрации', () => {
       }),
     });
 
-    utils.test.renderAuthApp({
+    utils.mock.renderAuthApp({
       initialRoute: '/registration',
       registrationElement: <Registration />,
       loginElement: <div>Login page</div>,
@@ -123,7 +123,7 @@ describe('Интеграционный тест Регистрации', () => {
         .mockRejectedValue(new Error('Пользователь уже существует')),
     });
 
-    utils.test.renderAuthApp({
+    utils.mock.renderAuthApp({
       initialRoute: '/registration',
       registrationElement: <Registration />,
       loginElement: <div>Login page</div>,

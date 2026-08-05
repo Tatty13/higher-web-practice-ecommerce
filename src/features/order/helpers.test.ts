@@ -1,42 +1,7 @@
-import type { CartItem, UserProfile } from '@/types';
+import utils from '@/utils';
 
 import { helpersOrder } from './helpers';
 import type { FormOrderValues } from './types';
-
-const createUser = (overrides: Partial<UserProfile> = {}): UserProfile => ({
-  id: 'user-1',
-  firstName: 'Тест',
-  lastName: 'Тестов',
-  email: 'test@test.com',
-  language: 'ru',
-  notifyByEmail: false,
-  createdAt: '2026-07-22T20:24:13.519Z',
-  ...overrides,
-});
-
-const createCartItem = (overrides: Partial<CartItem> = {}): CartItem => ({
-  productId: 'product-1',
-  price: 150,
-  quantity: 2,
-  product: {
-    id: 'product-1',
-    name: 'Усы 1',
-    description: 'Описание',
-    price: 150,
-    createdAt: '2026-01-01T00:00:00.000Z',
-    rating: 5,
-    ratingCount: 1,
-    inStock: true,
-    images: ['image-1.jpg'],
-    characteristics: {
-      категория: 'Классические',
-      стиль: 'Деловой',
-      густота: 'Средняя',
-      закрученность: 'Низкая',
-    },
-  },
-  ...overrides,
-});
 
 const createFormValues = (
   overrides: Partial<FormOrderValues> = {},
@@ -63,8 +28,8 @@ describe('Фейковое время доставки', () => {
 describe('Формирование payload для создание заказа', () => {
   it('Создает payload для доставки курьером', () => {
     const result = helpersOrder.buildCreateOrderPayload({
-      user: createUser(),
-      cartItems: [createCartItem()],
+      user: utils.mock.createMockUser(),
+      cartItems: [utils.mock.createMockCartItem()],
       totalPrice: 300,
       formValues: createFormValues(),
     });
@@ -97,14 +62,14 @@ describe('Формирование payload для создание заказа'
 
   it('Создает payload для доставки в пункт выдачи', () => {
     const result = helpersOrder.buildCreateOrderPayload({
-      user: createUser({
+      user: utils.mock.createMockUser({
         id: 'user-2',
         email: 'pickup@test.ru',
         firstName: 'Петр',
         lastName: 'Петров',
       }),
       cartItems: [
-        createCartItem({
+        utils.mock.createMockCartItem({
           productId: 'product-2',
           quantity: 1,
           price: 500,

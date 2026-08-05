@@ -83,7 +83,7 @@ describe('Регистрация', () => {
   it('Показывает ошибку, если пароль не соответствует требованиям, не вызывает registerUser', async () => {
     const user = userEvent.setup();
 
-    utils.test.renderWithProviders(<Registration />);
+    utils.mock.renderWithProviders(<Registration />);
 
     await user.type(screen.getByLabelText(firstNameFieldName), 'Тест');
     await user.type(screen.getByLabelText(lastNameFieldName), 'Тестов');
@@ -107,7 +107,7 @@ describe('Регистрация', () => {
   it('Показывает ошибку, если пароли не совпадают, не вызывает registerUser', async () => {
     const user = userEvent.setup();
 
-    utils.test.renderWithProviders(<Registration />);
+    utils.mock.renderWithProviders(<Registration />);
 
     await user.type(screen.getByLabelText(firstNameFieldName), 'Тест');
     await user.type(screen.getByLabelText(lastNameFieldName), 'Тестов');
@@ -136,11 +136,14 @@ describe('Регистрация', () => {
   it('Показывает ошибку, если email невалидный, не вызывает registerUser', async () => {
     const user = userEvent.setup();
 
-    utils.test.renderWithProviders(<Registration />);
+    utils.mock.renderWithProviders(<Registration />);
 
     await user.type(screen.getByLabelText(firstNameFieldName), 'Тест');
     await user.type(screen.getByLabelText(lastNameFieldName), 'Тестов');
-    await user.type(screen.getByLabelText(emailFieldName), 'invalid-email@email');
+    await user.type(
+      screen.getByLabelText(emailFieldName),
+      'invalid-email@email',
+    );
     await user.type(screen.getByLabelText(passwordFieldName), 'ValidPass123!');
     await user.type(
       screen.getByLabelText(confirmPasswordFieldName),
@@ -163,7 +166,7 @@ describe('Регистрация', () => {
   it('Показывает ошибку, если обязательные поля не заполнены', async () => {
     const user = userEvent.setup();
 
-    utils.test.renderWithProviders(<Registration />);
+    utils.mock.renderWithProviders(<Registration />);
 
     await user.type(screen.getByLabelText(emailFieldName), 'test@test.ru');
     await user.type(screen.getByLabelText(passwordFieldName), 'ValidPass123!');
@@ -198,7 +201,7 @@ describe('Регистрация', () => {
 
     mockRegisterUser.mockReturnValueOnce({ unwrap });
 
-    utils.test.renderWithProviders(<Registration />);
+    utils.mock.renderWithProviders(<Registration />);
 
     await user.type(screen.getByLabelText(firstNameFieldName), 'Тест');
     await user.type(screen.getByLabelText(lastNameFieldName), 'Тестов');

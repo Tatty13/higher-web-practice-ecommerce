@@ -105,7 +105,7 @@ describe('Логин', () => {
       },
     });
 
-    utils.test.renderWithProviders(<Login />);
+    utils.mock.renderWithProviders(<Login />);
 
     await user.type(screen.getByLabelText(emailFieldName), 'test@test.ru');
     await user.type(screen.getByLabelText(passwordFieldName), 'Password123');
@@ -136,7 +136,7 @@ describe('Логин', () => {
     });
 
     expect(() => {
-      utils.test.renderWithProviders(<Login />);
+      utils.mock.renderWithProviders(<Login />);
     }).not.toThrow();
 
     await user.type(screen.getByLabelText(emailFieldName), 'test@test.ru');
@@ -164,7 +164,7 @@ describe('Логин', () => {
       unwrap: jest.fn().mockRejectedValue(new Error('')),
     });
 
-    utils.test.renderWithProviders(<Login />);
+    utils.mock.renderWithProviders(<Login />);
 
     await user.type(screen.getByLabelText(emailFieldName), 'test@test.ru');
     await user.type(screen.getByLabelText(passwordFieldName), 'WrongPassword');
@@ -187,7 +187,7 @@ describe('Логин', () => {
   it('Показывает ошибку, если обязательные поля не заполнены', async () => {
     const user = userEvent.setup();
 
-    utils.test.renderWithProviders(<Login />);
+    utils.mock.renderWithProviders(<Login />);
 
     await user.click(screen.getByRole('button', { name: submitBtnName }));
 

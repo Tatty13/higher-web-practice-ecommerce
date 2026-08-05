@@ -117,7 +117,7 @@ describe('Интеграционный тест Логина', () => {
       },
     });
 
-    utils.test.renderAuthApp({
+    utils.mock.renderAuthApp({
       initialRoute: '/login',
       registrationElement: <div>Registration page</div>,
       loginElement: <Login />,
@@ -148,7 +148,7 @@ describe('Интеграционный тест Логина', () => {
         .mockRejectedValue(new Error('Проверьте email или пароль')),
     });
 
-    utils.test.renderAuthApp({
+    utils.mock.renderAuthApp({
       initialRoute: '/login',
       registrationElement: <div>Registration page</div>,
       loginElement: <Login />,
