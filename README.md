@@ -51,6 +51,12 @@ npm run build
 npm run lint
 ```
 
+### Проверка типов
+
+```bash
+npm run typecheck
+```
+
 ## 📁 Структура проекта
 
 ```text
