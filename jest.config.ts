@@ -3,6 +3,8 @@
  * https://jestjs.io/docs/configuration
  */
 
+/** @jest-config-loader ts-node */
+
 import type { JestConfigWithTsJest } from 'ts-jest';
 
 const config: JestConfigWithTsJest = {
