@@ -127,7 +127,6 @@ export const ProfileEdit: FC = () => {
             <Form.Item
               name='firstName'
               label='Имя:'
-              required={false}
               rules={[utils.validation.VALIDATION_RULES.required]}>
               <Input size='large' />
             </Form.Item>
@@ -138,7 +137,6 @@ export const ProfileEdit: FC = () => {
             <Form.Item
               name='lastName'
               label='Фамилия:'
-              required={false}
               rules={[utils.validation.VALIDATION_RULES.required]}>
               <Input size='large' />
             </Form.Item>
@@ -149,7 +147,6 @@ export const ProfileEdit: FC = () => {
             <Form.Item
               name='email'
               label='Email:'
-              required={false}
               rules={[utils.validation.VALIDATION_RULES.required]}>
               <Input size='large' />
             </Form.Item>
