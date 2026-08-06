@@ -15,6 +15,7 @@ import {
 } from 'antd';
 
 import { api } from '@/api';
+import { helpersApi } from '@/api/helpers';
 import { FilterIcon } from '@/assets';
 import { ROUTE_PATHS } from '@/app/paths';
 import { Loader } from '@/uiKit';
@@ -55,9 +56,9 @@ export const CatalogSubCategory: FC = () => {
   }, [catalogItems, subCategory, filters]);
 
   const handleAddToCart = async (productId: string) => {
-    await addToCart(productId);
+    const result = await addToCart(productId);
 
-    if (isErrorAddToCart) {
+    if (helpersApi.isErrorResult(result)) {
       notificationApi.error({
         message: 'Произошла ошибка при добавлении товара в корзину',
       });
@@ -125,7 +126,7 @@ export const CatalogSubCategory: FC = () => {
             icon={<FilterIcon />}
             onClick={() =>
               navigate(
-                `${ROUTE_PATHS.catalogFiltersIndex}/${category}/${subCategory}?${searchParams}`,
+                `${ROUTE_PATHS.catalogFilters}/${category}/${subCategory}?${searchParams}`,
               )
             }
           />

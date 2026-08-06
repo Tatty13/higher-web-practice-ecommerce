@@ -14,6 +14,7 @@ import {
 import styled from 'styled-components';
 
 import { api } from '@/api';
+import { helpersApi } from '@/api/helpers';
 import { ROUTE_PATHS } from '@/app/paths';
 import { tokens } from '@/theme/tokens';
 import { AvatarUpload, Card, Loader } from '@/uiKit';
@@ -39,10 +40,8 @@ export const ProfileEdit: FC = () => {
     refetch: refetchGetUser,
   } = api.user.useGetUserQuery();
 
-  const [
-    updateUser,
-    { isLoading: isLoadingUpdateUser, isError: isErrorUpdateUser },
-  ] = api.user.useUpdateUserMutation();
+  const [updateUser, { isLoading: isLoadingUpdateUser }] =
+    api.user.useUpdateUserMutation();
 
   const initialValues = {
     firstName: user?.firstName,
@@ -68,11 +67,11 @@ export const ProfileEdit: FC = () => {
         return;
       }
 
-      await updateUser({
+      const result = await updateUser({
         data: values,
       });
 
-      if (isErrorUpdateUser) {
+      if (helpersApi.isErrorResult(result)) {
         throw new Error();
       }
 

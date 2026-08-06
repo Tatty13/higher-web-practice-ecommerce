@@ -21,6 +21,23 @@ const orderApi = baseApi.injectEndpoints({
       },
       providesTags: ['OrderHistory'],
     }),
+
+    getOrderById: builder.query<Order, string | number>({
+      query: (id) => {
+        const userId = utils.storage.getUserIdFromLocalStorage();
+
+        return {
+          url: BASE_URL,
+          params: {
+            id,
+            userId,
+          },
+        };
+      },
+      transformResponse: (response: Order[]) => response[0] ?? null,
+      providesTags: (_result, _error, id) => [{ type: 'OrderHistory', id }],
+    }),
+
     createOrder: builder.mutation<Order, CreateOrderPayload>({
       query: (payload) => {
         const order = helpersOrderApi.createOrderEntity(payload);
@@ -37,9 +54,14 @@ const orderApi = baseApi.injectEndpoints({
   overrideExisting: false,
 });
 
-const { useGetOrderHistoryQuery, useCreateOrderMutation } = orderApi;
+const {
+  useGetOrderHistoryQuery,
+  useGetOrderByIdQuery,
+  useCreateOrderMutation,
+} = orderApi;
 
 export const methodsOrderApi = {
   useGetOrderHistoryQuery,
+  useGetOrderByIdQuery,
   useCreateOrderMutation,
 };

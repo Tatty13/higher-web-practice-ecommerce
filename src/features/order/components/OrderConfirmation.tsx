@@ -1,33 +1,27 @@
 import type { FC } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button, Col, Empty, Flex, List, Row, Typography } from 'antd';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Alert, Button, Col, Empty, Flex, List, Row, Typography } from 'antd';
 import styled from 'styled-components';
 
 import { api } from '@/api';
 import { ROUTE_PATHS } from '@/app/paths';
 import { theme } from '@/theme/styledTheme';
-import { Card, Divider, Text } from '@/uiKit';
+import { tokens } from '@/theme/tokens';
+import { Card, Divider, Loader, Text } from '@/uiKit';
 import utils from '@/utils';
-import type { Order } from '@/types';
 
 import { helpersOrder } from '../helpers';
-import { tokens } from '@/theme/tokens';
-
-type OrderConfirmLocationState = {
-  order?: Order;
-};
 
 export const OrderConfirmation: FC = () => {
   const { isMobile } = utils.responsive.useResponsive();
+  const { orderId = '' } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
-  const state = location.state as OrderConfirmLocationState | null;
 
-  const order = state?.order;
-
-  if (!order) {
-    return <Empty>Заказ не найден</Empty>;
-  }
+  const {
+    data: order,
+    isLoading: isLoadingGetOrder,
+    isError: isErrorGetOrder,
+  } = api.order.useGetOrderByIdQuery(orderId);
 
   const { data: pickupPoints } = api.location.useGetPickupPointsQuery();
 
@@ -42,7 +36,7 @@ export const OrderConfirmation: FC = () => {
     }
 
     const pickupPoint = pickupPoints?.find(
-      (pickupPoint) => pickupPoint.id === order.pickupPointId,
+      (pickupPoint) => pickupPoint.id === order?.pickupPointId,
     );
 
     return (
@@ -74,7 +68,7 @@ export const OrderConfirmation: FC = () => {
   };
 
   const renderPaymentMethod = () => {
-    const paymentMethod = order.paymentMethod;
+    const paymentMethod = order?.paymentMethod;
     let text;
 
     switch (paymentMethod) {
@@ -91,6 +85,24 @@ export const OrderConfirmation: FC = () => {
 
     return <SubText>{text}</SubText>;
   };
+
+  if (isLoadingGetOrder) {
+    return <Loader />;
+  }
+
+  if (isErrorGetOrder) {
+    return (
+      <Alert
+        type='error'
+        message='Ошибка загрузки заказа'
+        showIcon
+      />
+    );
+  }
+
+  if (!order) {
+    return <Empty>Заказ не найден</Empty>;
+  }
 
   return (
     <Container

@@ -15,6 +15,7 @@ import styled from 'styled-components';
 
 import { UserIcon } from '@/assets';
 import { api } from '@/api';
+import { helpersApi } from '@/api/helpers';
 import { ROUTE_PATHS } from '@/app/paths';
 import { actionsAuth } from '@/features/auth/slice';
 import { useAppDispatch } from '@/store';
@@ -44,20 +45,12 @@ export const Profile: FC = () => {
   const { data: user, isLoading: isLoadingGetUser } =
     api.user.useGetUserQuery();
 
-  const [
-    changeUserLanguage,
-    {
-      isLoading: isLoadingChangeUserLanguage,
-      isError: isErrorChangeUserLanguage,
-    },
-  ] = api.user.useChangeUserLanguageMutation();
+  const [changeUserLanguage, { isLoading: isLoadingChangeUserLanguage }] =
+    api.user.useChangeUserLanguageMutation();
 
   const [
     changeUserNotification,
-    {
-      isLoading: isLoadingChangeUserNotification,
-      isError: isErrorChangeUserNotification,
-    },
+    { isLoading: isLoadingChangeUserNotification },
   ] = api.user.useChangeUserNotificationMutation();
 
   const editProfile = () => {
@@ -66,11 +59,11 @@ export const Profile: FC = () => {
 
   const handleChangeLang: SelectProps['onChange'] = async (language) => {
     try {
-      await changeUserLanguage({
+      const result = await changeUserLanguage({
         language,
       });
 
-      if (isErrorChangeUserLanguage) {
+      if (helpersApi.isErrorResult(result)) {
         throw new Error();
       }
     } catch {
@@ -82,11 +75,11 @@ export const Profile: FC = () => {
 
   const handleChangeNotification: CheckboxProps['onChange'] = async (evt) => {
     try {
-      await changeUserNotification({
+      const result = await changeUserNotification({
         notifyByEmail: evt.target.checked,
       });
 
-      if (isErrorChangeUserNotification) {
+      if (helpersApi.isErrorResult(result)) {
         throw new Error();
       }
     } catch {

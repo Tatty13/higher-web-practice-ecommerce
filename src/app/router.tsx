@@ -51,11 +51,11 @@ const router = createBrowserRouter([
                 element: <CatalogCategoriesPage />,
               },
               {
-                path: `${ROUTE_PATHS.catalogCategory}`,
+                path: `${ROUTE_PATHS.catalog}/:category`,
                 element: <CatalogCategoryPage />,
               },
               {
-                path: `${ROUTE_PATHS.catalogSubCategory}`,
+                path: `${ROUTE_PATHS.catalog}/:category/:subCategory`,
                 element: <CatalogSubCategoryPage />,
               },
             ],
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
       },
       { path: `${ROUTE_PATHS.product}/:id`, element: <ProductPage /> },
       {
-        path: `${ROUTE_PATHS.catalogFilters}`,
+        path: `${ROUTE_PATHS.catalogFilters}/:category/:subCategory`,
         element: <MobileOnlyRoute />,
         children: [{ index: true, element: <CatalogFiltersPage /> }],
       },
@@ -91,7 +91,10 @@ const router = createBrowserRouter([
             ],
           },
           { path: ROUTE_PATHS.order, element: <OrderPage /> },
-          { path: ROUTE_PATHS.orderConfirm, element: <OrderConfirmPage /> },
+          {
+            path: `${ROUTE_PATHS.orderConfirm}/:orderId`,
+            element: <OrderConfirmPage />,
+          },
         ],
       },
     ],

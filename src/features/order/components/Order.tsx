@@ -17,6 +17,7 @@ import {
 import styled from 'styled-components';
 
 import { api } from '@/api';
+import { helpersApi } from '@/api/helpers';
 import { ROUTE_PATHS } from '@/app/paths';
 import { BasketImage, PlusIcon } from '@/assets';
 import { Card, Divider, Loader } from '@/uiKit';
@@ -49,10 +50,8 @@ export const Order: FC = () => {
 
   const { data: cities, isLoading: isLoadingCities } =
     api.location.useGetCitiesQuery();
-  const [
-    createOrder,
-    { isLoading: isCreatingOrder, isError: isErrorCreateOrder },
-  ] = api.order.useCreateOrderMutation();
+  const [createOrder, { isLoading: isCreatingOrder }] =
+    api.order.useCreateOrderMutation();
   const [deleteCart, { isLoading: isLoadingDeleteCart }] =
     api.cart.useDeleteCartMutation();
 
@@ -104,9 +103,10 @@ export const Order: FC = () => {
         formValues,
         totalPrice,
       });
-      const createdOrder = await createOrder(requestData).unwrap();
+      const result = await createOrder(requestData);
+      const createdOrder = result.data;
 
-      if (isErrorCreateOrder) {
+      if (helpersApi.isErrorResult(result) || !createdOrder) {
         notificationApi.error({
           message: 'Произошла ошибка при создании заказа',
           description: 'Попробуйте повторить позднее',
@@ -117,12 +117,7 @@ export const Order: FC = () => {
 
       await deleteCart();
 
-      navigate(ROUTE_PATHS.orderConfirm, {
-        replace: true,
-        state: {
-          order: createdOrder,
-        },
-      });
+      navigate(`${ROUTE_PATHS.orderConfirm}/${createdOrder.id}`);
     } catch {
       const isPickupPointDeliveryMethod =
         formValues?.deliveryMethod === 'pickup_point';

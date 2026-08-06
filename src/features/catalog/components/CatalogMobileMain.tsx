@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Alert, notification } from 'antd';
 
 import { api } from '@/api';
+import { helpersApi } from '@/api/helpers';
 import { ROUTE_PATHS } from '@/app/paths';
 import { Loader } from '@/uiKit';
 
@@ -29,9 +30,9 @@ export const CatalogMobileMain: FC = () => {
   ] = api.cart.useAddToCartMutation();
 
   const handleAddToCart = async (productId: string) => {
-    await addToCart(productId);
+    const result = await addToCart(productId);
 
-    if (isErrorAddToCart) {
+    if (helpersApi.isErrorResult(result)) {
       notificationApi.error({
         message: 'Произошла ошибка при добавлении товара в корзину',
       });
