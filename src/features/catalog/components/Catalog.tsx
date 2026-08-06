@@ -4,6 +4,7 @@ import { Alert, Flex, notification, Typography } from 'antd';
 import styled from 'styled-components';
 
 import { api } from '@/api';
+import { helpersApi } from '@/api/helpers';
 import { ROUTE_PATHS } from '@/app/paths';
 import { Card, Loader } from '@/uiKit';
 import type { ProductFilters, ProductSort, ProductView } from '@/types';
@@ -62,9 +63,9 @@ export const Catalog: FC = () => {
   };
 
   const handleAddToCart = async (productId: string) => {
-    await addToCart(productId);
+    const result = await addToCart(productId);
 
-    if (isErrorAddToCart) {
+    if (helpersApi.isErrorResult(result)) {
       notificationApi.error({
         message: 'Произошла ошибка при добавлении товара в корзину',
       });

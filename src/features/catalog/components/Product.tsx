@@ -4,6 +4,7 @@ import { Button, Flex, notification, Typography } from 'antd';
 import styled from 'styled-components';
 
 import { api } from '@/api';
+import { helpersApi } from '@/api/helpers';
 import { ROUTE_PATHS } from '@/app/paths';
 
 import { Loader } from '@/uiKit';
@@ -33,15 +34,11 @@ export const Product: FC = () => {
   const { data: user } = api.user.useGetUserQuery();
   const { data: orders } = api.order.useGetOrderHistoryQuery();
 
-  const [
-    addToCart,
-    { isLoading: isLoadingAddToCart, isError: isErrorAddToCart },
-  ] = api.cart.useAddToCartMutation();
+  const [addToCart, { isLoading: isLoadingAddToCart }] =
+    api.cart.useAddToCartMutation();
 
-  const [
-    addRating,
-    { isLoading: isLoadingAddRating, isError: isErrorAddRating },
-  ] = api.catalog.useAddRatingMutation();
+  const [addRating, { isLoading: isLoadingAddRating }] =
+    api.catalog.useAddRatingMutation();
 
   const characteristics = useMemo(() => {
     return Object.entries(product?.characteristics || {}).map(
@@ -73,9 +70,9 @@ export const Product: FC = () => {
 
   const handleAddToCart = async () => {
     try {
-      await addToCart(product!.id);
+      const result = await addToCart(product!.id);
 
-      if (isErrorAddToCart) {
+      if (helpersApi.isErrorResult(result)) {
         throw new Error('Произошла ошибка при добавлении товара в корзину');
       }
 
@@ -94,14 +91,14 @@ export const Product: FC = () => {
         throw new Error('Авторизуйтесь, чтобы оценить товар');
       }
 
-      await addRating({
+      const result = await addRating({
         productId: product!.id,
         userId: user.id,
         userName: `${user.firstName} ${user.lastName[0].toUpperCase()}.`,
         rating,
       });
 
-      if (isErrorAddRating) {
+      if (helpersApi.isErrorResult(result)) {
         throw new Error('Произошла ошибка при добавлении рейтинга товара');
       }
 

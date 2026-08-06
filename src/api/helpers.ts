@@ -30,8 +30,12 @@ const isApiError = (err: unknown): err is ApiError => {
   return typeof err === 'object' && err !== null && 'status' in err;
 };
 
+const isErrorResult = (result: unknown) =>
+  result && typeof result === 'object' && 'error' in result;
+
 export const helpersApi = {
   getUnauthorizedError,
   getUserIdOrThrow,
   isApiError,
+  isErrorResult,
 };

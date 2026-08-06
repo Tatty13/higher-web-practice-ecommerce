@@ -7,6 +7,8 @@ import type {
 
 import type { Cart, CartItem, Product } from '@/types';
 
+import { helpersApi } from '../helpers';
+
 export type BaseQuery = (
   arg: string | FetchArgs,
 ) => Promise<
@@ -62,7 +64,7 @@ const getUserCart = async (
     method: 'GET',
   });
 
-  if ('error' in result && result.error) {
+  if (helpersApi.isErrorResult(result) && result.error) {
     return { error: result.error };
   }
 
@@ -85,7 +87,7 @@ const createUserCart = async (
     body: newCart,
   });
 
-  if ('error' in result && result.error) {
+  if (helpersApi.isErrorResult(result) && result.error) {
     return { error: result.error };
   }
 
@@ -128,7 +130,7 @@ const saveCart = async (
     body: updatedCart,
   });
 
-  if ('error' in result && result.error) {
+  if (helpersApi.isErrorResult(result) && result.error) {
     return { error: result.error };
   }
 
@@ -146,7 +148,7 @@ const getProductById = async (
     method: 'GET',
   });
 
-  if ('error' in result && result.error) {
+  if (helpersApi.isErrorResult(result) && result.error) {
     return { error: result.error };
   }
 
