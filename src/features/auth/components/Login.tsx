@@ -29,15 +29,16 @@ export const Login: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [loginUser, { isLoading, isError }] = api.user.useLoginUserMutation();
+  const [loginUser, { isLoading }] = api.user.useLoginUserMutation();
   const [getUser, { isLoading: isLoadingGetUser }] =
     api.user.useLazyGetUserQuery();
 
   const onFinish: FormProps<Fields>['onFinish'] = async (values) => {
     try {
-      const user = await loginUser(values).unwrap();
+      const result = await loginUser(values);
+      const user = result.data;
 
-      if (isError || !user) {
+      if (result.error || !user) {
         throw new Error('Проверьте email или пароль');
       }
 

@@ -8,7 +8,6 @@ import { Registration } from './Registration';
 
 const mockNavigate = jest.fn();
 const mockRegisterUser = jest.fn();
-const mockNotificationError = jest.fn();
 
 jest.mock('react-router-dom', () => {
   const actual = jest.requireActual('react-router-dom');
@@ -32,22 +31,6 @@ jest.mock('@/api', () => ({
     },
   },
 }));
-
-jest.mock('antd', () => {
-  const actual = jest.requireActual('antd');
-  return {
-    ...actual,
-    notification: {
-      ...actual.notification,
-      useNotification: () => [
-        {
-          error: mockNotificationError,
-        },
-        <div key='notification-holder' />,
-      ],
-    },
-  };
-});
 
 jest.mock('./Auth', () => ({
   Auth: ({
@@ -120,14 +103,8 @@ describe('Регистрация', () => {
 
     await user.click(screen.getByRole('button', { name: submitBtnName }));
 
-    await waitFor(() => {
-      expect(mockNotificationError).toHaveBeenCalledWith(
-        expect.objectContaining({
-          message: 'Ошибка регистрации',
-          description: 'Пароли не совпадают',
-        }),
-      );
-    });
+    const errorMessage = await screen.findByText('Пароли не совпадают');
+    expect(errorMessage).toBeInTheDocument();
 
     expect(mockRegisterUser).not.toHaveBeenCalled();
     expect(mockNavigate).not.toHaveBeenCalled();

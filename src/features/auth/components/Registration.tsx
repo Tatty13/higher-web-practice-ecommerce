@@ -26,19 +26,11 @@ export const Registration: FC = () => {
 
   const onFinish: FormProps<Fields>['onFinish'] = async (values) => {
     try {
-      if (values.password !== values.confirmPassword) {
-        throw new Error('Пароли не совпадают');
-      }
-
       await registerUser(values).unwrap();
 
       navigate(ROUTE_PATHS.login);
     } catch (err) {
       let description: string | undefined;
-
-      if (err instanceof Error) {
-        description = err.message;
-      }
 
       if (helpersApi.isApiError(err)) {
         description = err.data?.message;
@@ -112,7 +104,18 @@ export const Registration: FC = () => {
             <Form.Item
               name='confirmPassword'
               label='Повторите пароль'
-              rules={[utils.validation.VALIDATION_RULES.required]}>
+              rules={[
+                utils.validation.VALIDATION_RULES.required,
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    const password = getFieldValue('password');
+                    if (!value || !password || password === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('Пароли не совпадают'));
+                  },
+                }),
+              ]}>
               <Input
                 type='password'
                 size='large'

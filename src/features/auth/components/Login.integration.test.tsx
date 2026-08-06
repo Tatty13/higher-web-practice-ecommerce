@@ -105,10 +105,10 @@ describe('Интеграционный тест Логина', () => {
     const user = userEvent.setup();
 
     mockLoginUser.mockReturnValueOnce({
-      unwrap: jest.fn().mockResolvedValue({
+      data: {
         id: 'user-42',
         email: 'test@test.ru',
-      }),
+      },
     });
 
     mockGetUser.mockResolvedValueOnce({
@@ -143,9 +143,7 @@ describe('Интеграционный тест Логина', () => {
     const user = userEvent.setup();
 
     mockLoginUser.mockReturnValueOnce({
-      unwrap: jest
-        .fn()
-        .mockRejectedValue(new Error('Проверьте email или пароль')),
+      error: { message: 'Проверьте email или пароль' },
     });
 
     utils.mock.renderAuthApp({
@@ -156,7 +154,10 @@ describe('Интеграционный тест Логина', () => {
     });
 
     await user.type(screen.getByLabelText(emailFieldName), 'test@test.ru');
-    await user.type(screen.getByLabelText(passwordFieldName), 'Wrong-password-1');
+    await user.type(
+      screen.getByLabelText(passwordFieldName),
+      'Wrong-password-1',
+    );
     await user.click(screen.getByRole('button', { name: submitBtnName }));
 
     await waitFor(() => {

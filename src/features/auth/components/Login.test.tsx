@@ -93,10 +93,10 @@ describe('Логин', () => {
     const user = userEvent.setup();
 
     mockLoginUser.mockReturnValueOnce({
-      unwrap: jest.fn().mockResolvedValue({
+      data: {
         id: 'user-123',
         email: 'test@test.ru',
-      }),
+      },
     });
 
     mockGetUser.mockResolvedValueOnce({
@@ -132,7 +132,7 @@ describe('Логин', () => {
     const user = userEvent.setup();
 
     mockLoginUser.mockReturnValueOnce({
-      unwrap: jest.fn().mockResolvedValue(null),
+      data: null,
     });
 
     expect(() => {
@@ -157,11 +157,11 @@ describe('Логин', () => {
     expect(mockNavigate).not.toHaveBeenCalled();
   });
 
-  it('Показывает нотификацию, если loginUser.unwrap() пробросил ошибку', async () => {
+  it('Показывает нотификацию, если loginUser() вернул ошибку', async () => {
     const user = userEvent.setup();
 
     mockLoginUser.mockReturnValueOnce({
-      unwrap: jest.fn().mockRejectedValue(new Error('')),
+      error: { message: 'Ошибка' },
     });
 
     utils.mock.renderWithProviders(<Login />);
@@ -174,7 +174,7 @@ describe('Логин', () => {
       expect(mockNotificationError).toHaveBeenCalledWith(
         expect.objectContaining({
           message: 'Ошибка авторизации',
-          description: '',
+          description: 'Проверьте email или пароль',
         }),
       );
     });
