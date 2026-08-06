@@ -21,7 +21,7 @@ export const LinkWithIcon: FC<LinkWithIconProps & NavLinkProps> = ({
 }) => {
   return (
     <StyledNavLink
-      withActiveStyle={withActiveStyle}
+      $withActiveStyle={withActiveStyle}
       {...navLinkProps}>
       <Wrapper
         vertical
@@ -39,14 +39,14 @@ export const LinkWithIcon: FC<LinkWithIconProps & NavLinkProps> = ({
   );
 };
 
-const StyledNavLink = styled(NavLink)<{ withActiveStyle: boolean }>`
+const StyledNavLink = styled(NavLink)<{ $withActiveStyle: boolean }>`
   &.active {
-    color: ${({ withActiveStyle }) =>
-      withActiveStyle ? theme.colors.accentSecondary : 'inherit'};
+    color: ${({ $withActiveStyle }) =>
+      $withActiveStyle ? theme.colors.accentSecondary : 'inherit'};
 
     & .ant-typography {
-      color: ${({ withActiveStyle }) =>
-        withActiveStyle ? theme.colors.accentSecondary : 'inherit'};
+      color: ${({ $withActiveStyle }) =>
+        $withActiveStyle ? theme.colors.accentSecondary : 'inherit'};
     }
   }
 `;
