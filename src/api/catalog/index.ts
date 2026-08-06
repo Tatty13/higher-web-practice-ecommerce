@@ -1,6 +1,7 @@
 import type { Product, ProductRating } from '@/types';
 
 import { baseApi } from '../baseApi';
+import { helpersCatalogApi, type AddRatingPayload } from './helpers';
 
 const BASE_URL = '/products';
 const RATINGS_URL = '/ratings';
@@ -33,21 +34,52 @@ const catalogApi = baseApi.injectEndpoints({
         { type: 'Ratings', id: productId },
       ],
     }),
-    addRating: builder.mutation<
-      ProductRating,
-      Omit<ProductRating, 'id' | 'createdAt'>
-    >({
-      query: (body) => ({
-        url: RATINGS_URL,
-        method: 'POST',
-        body: {
-          ...body,
-          createdAt: new Date().toString(),
-          id: crypto.randomUUID(),
-        },
-      }),
-      invalidatesTags: (_result, _error, body) => [
-        { type: 'Ratings', id: body.productId },
+    addRating: builder.mutation<ProductRating, AddRatingPayload>({
+      async queryFn(payload, _api, _extraOptions, baseQuery) {
+        const ratingToCreate = helpersCatalogApi.createRatingEntity(payload);
+
+        const createRatingResponse = await baseQuery({
+          url: RATINGS_URL,
+          method: 'POST',
+          body: ratingToCreate,
+        });
+
+        if (createRatingResponse.error) {
+          return { error: createRatingResponse.error };
+        }
+
+        const getRatingsResponse = await baseQuery({
+          url: RATINGS_URL,
+          params: {
+            productId: payload.productId,
+          },
+        });
+
+        if (getRatingsResponse.error) {
+          return { error: getRatingsResponse.error };
+        }
+
+        const productRatings = getRatingsResponse.data as ProductRating[];
+        const updatedRatingData =
+          helpersCatalogApi.getProductRatingData(productRatings);
+
+        const updateProductResponse = await baseQuery({
+          url: `${BASE_URL}/${payload.productId}`,
+          method: 'PATCH',
+          body: updatedRatingData,
+        });
+
+        if (updateProductResponse.error) {
+          return { error: updateProductResponse.error };
+        }
+
+        return { data: createRatingResponse.data as ProductRating };
+      },
+
+      invalidatesTags: (_result, _error, payload) => [
+        { type: 'Ratings', id: payload.productId },
+        { type: 'Catalog', id: payload.productId },
+        'Catalog',
       ],
     }),
   }),

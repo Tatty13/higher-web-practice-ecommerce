@@ -45,8 +45,8 @@
         "харизма": "5"
       },
       "inStock": true,
-      "rating": 4.5,
-      "ratingCount": 2,
+      "rating": 0,
+      "ratingCount": 0,
       "createdAt": "2026-03-01T09:00:00Z"
     },
     {
@@ -222,7 +222,7 @@
         "харизма": "5"
       },
       "inStock": true,
-      "rating": 4.5,
+      "rating": 5,
       "ratingCount": 2,
       "createdAt": "2026-03-02T10:00:00Z"
     },
@@ -247,8 +247,8 @@
         "харизма": "5"
       },
       "inStock": true,
-      "rating": 0,
-      "ratingCount": 0,
+      "rating": 4,
+      "ratingCount": 1,
       "createdAt": "2026-03-02T11:00:00Z"
     },
     {
@@ -664,31 +664,6 @@
   ],
   "ratings": [
     {
-      "id": "a3e2c1b0-9f8e-4d7c-8b6a-5c4d3e2f1a00",
-      "productId": "3e6e9a7a-0a5f-4e2d-9b0a-2e8d6e4c1a01",
-      "userId": "8f6b1a1e-7d1d-4b2c-9c6c-1c5f3c9c1a11",
-      "userName": "Иван П.",
-      "rating": 5,
-      "createdAt": "2026-03-05T12:00:00Z"
-    },
-    {
-      "id": "b4f3d2c1-a09f-4e8d-9c7b-6d5e4f3a2b11",
-      "productId": "3e6e9a7a-0a5f-4e2d-9b0a-2e8d6e4c1a01",
-      "userId": "1a0d9c3c-6b6f-4c6a-9e7a-5b7c2a8e4d22",
-      "userName": "Анна С.",
-      "rating": 4,
-      "createdAt": "2026-03-06T12:30:00Z"
-    },
-    {
-      "id": "c5a4e3d2-b10a-4f9e-8d8c-7e6f5a4b3c22",
-      "productId": "b16d7283-94a5-4f16-9d27-e938fa49ab07",
-      "userId": "8f6b1a1e-7d1d-4b2c-9c6c-1c5f3c9c1a11",
-      "userName": "Иван П.",
-      "rating": 5,
-      "createdAt": "2026-03-05T12:05:00Z"
-    },
-    {
-      "id": "d6b5f4e3-c21b-40af-9e9d-8f7a6b5c4d33",
       "productId": "c27e8394-a5b6-4a17-8b3f-a49ab50b1c08",
       "userId": "1a0d9c3c-6b6f-4c6a-9e7a-5b7c2a8e4d22",
       "userName": "Анна С.",
@@ -696,20 +671,36 @@
       "createdAt": "2026-03-06T12:35:00Z"
     },
     {
-      "id": "e7c6a5f4-d32c-41b0-8f0e-9a8b7c6d5e44",
       "productId": "c27e8394-a5b6-4a17-8b3f-a49ab50b1c08",
       "userId": "8f6b1a1e-7d1d-4b2c-9c6c-1c5f3c9c1a11",
       "userName": "Иван П.",
-      "rating": 4,
-      "createdAt": "2026-03-08T19:10:00Z"
+      "rating": 5,
+      "createdAt": "2026-03-09T16:00:00Z",
+      "id": "50a7d90a-4379-43e1-b9ad-0ee3a0073d58"
     },
     {
-      "id": "f8d7b6a5-e43d-42c1-9a1f-0b9c8d7e6f55",
+      "productId": "b16d7283-94a5-4f16-9d27-e938fa49ab07",
+      "userId": "8f6b1a1e-7d1d-4b2c-9c6c-1c5f3c9c1a11",
+      "userName": "Иван П.",
+      "rating": 5,
+      "createdAt": "2026-03-09T16:00:00Z",
+      "id": "e2e3ed8d-947d-47d0-be1f-e3fc8d2eeebe"
+    },
+    {
       "productId": "8394a5b6-c7d8-41d2-8e75-61fa02132434",
       "userId": "1a0d9c3c-6b6f-4c6a-9e7a-5b7c2a8e4d22",
       "userName": "Анна С.",
       "rating": 3,
-      "createdAt": "2026-03-09T16:00:00Z"
+      "createdAt": "2026-03-09T16:00:00Z",
+      "id": "9c5fc1cc-f67c-4549-bd7f-12197945f13e"
+    },
+    {
+      "productId": "d38fa49a-b50b-4c28-9d7e-b61c2d3e4f09",
+      "userId": "1a0d9c3c-6b6f-4c6a-9e7a-5b7c2a8e4d22",
+      "userName": "Анна С.",
+      "rating": 4,
+      "createdAt": "2026-08-06T21:18:03.512Z",
+      "id": "49462356-ff59-44eb-a038-845c51aa4a84"
     }
   ],
   "pickupPoints": [
