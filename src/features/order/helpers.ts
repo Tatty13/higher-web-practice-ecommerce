@@ -1,4 +1,5 @@
 import type { CartItem, CreateOrderPayload, UserProfile } from '@/types';
+import utils from '@/utils';
 
 import type { FormOrderValues } from './types';
 
@@ -46,7 +47,7 @@ const buildCreateOrderPayload = ({
     email: user.email,
     firstName: user.firstName,
     lastName: user.lastName,
-    phone,
+    phone: utils.numbers.normalizeNumber(phone),
   };
 
   const data: CreateOrderPayload = {
@@ -55,11 +56,12 @@ const buildCreateOrderPayload = ({
     totalPrice,
     paymentMethod,
     deliveryMethod,
-    deliveryAddress: deliveryCity
-      ? `${deliveryCity}, ${deliveryAddress}`
-      : undefined,
+    deliveryAddress:
+      deliveryCity && deliveryAddress
+        ? `${deliveryCity}, ${deliveryAddress.trim()}`
+        : undefined,
     pickupPointId: pickupPointId || undefined,
-    comment,
+    comment: comment?.trim(),
     customer,
   };
 

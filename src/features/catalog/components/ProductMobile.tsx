@@ -148,8 +148,6 @@ export const ProductMobile: FC<ProductProps> = ({
 };
 
 const Container = styled(Flex)`
-  /* margin: 0 auto; */
-  /* width: 100%; */
   max-width: 980px;
   height: 100%;
 `;

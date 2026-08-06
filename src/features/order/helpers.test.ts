@@ -55,7 +55,7 @@ describe('Формирование payload для создание заказа'
         email: 'test@test.com',
         firstName: 'Тест',
         lastName: 'Тестов',
-        phone: '+79999999999',
+        phone: '79999999999',
       },
     });
   });
@@ -124,7 +124,7 @@ describe('Формирование payload для создание заказа'
         email: 'pickup@test.ru',
         firstName: 'Петр',
         lastName: 'Петров',
-        phone: '+79999999999',
+        phone: '79999999999',
       },
     });
   });

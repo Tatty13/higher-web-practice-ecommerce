@@ -219,12 +219,12 @@ export const Order: FC = () => {
                       gap='small'>
                       <RadioButton
                         value='courier'
-                        stretch>
+                        $stretch>
                         Курьером
                       </RadioButton>
                       <RadioButton
                         value='pickup_point'
-                        stretch>
+                        $stretch>
                         В пункт выдачи
                       </RadioButton>
                     </Flex>
@@ -317,6 +317,7 @@ export const Order: FC = () => {
                   <Form.Item
                     name='phone'
                     label='Номер телефона'
+                    initialValue={user?.phone}
                     rules={[
                       utils.validation.VALIDATION_RULES.required,
                       {
@@ -422,9 +423,9 @@ const TextContainer = styled(Flex)`
   width: 100%;
 `;
 
-const RadioButton = styled(Radio.Button)<{ stretch?: boolean }>`
+const RadioButton = styled(Radio.Button)<{ $stretch?: boolean }>`
   width: max-content;
-  flex: ${({ stretch }) => (stretch ? 1 : 'unset')};
+  flex: ${({ $stretch }) => ($stretch ? 1 : 'unset')};
   border-radius: 8px;
   text-align: center;
 `;
